@@ -1,5 +1,11 @@
 import requests
+import time
+import random
 from bs4 import BeautifulSoup
+
+
+
+text_urls = open('recipe_urls.txt', 'w+')
 
 base_url = "https://www.foodnetwork.com/recipes/recipes-a-z/"
 
@@ -10,14 +16,31 @@ url_extensions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm
 def page_search_length(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'lxml')
-    max_pages = 0
 
     lengths = soup.findAll('li', {"class": "o-Pagination__a-ListItem"})
-    print(lengths[-2].find('a').get_text())
+    
+
+    return int(lengths[-2].find('a').get_text())
 
 def subpage_search(url, pages):
-    for x in range(1, pages + 1):
-        search_url = url + x
-        r = requests.get(url)
+    url_list = []
 
-page_search_length(base_url + 'b')
+    for x in range(1, pages + 1):
+        search_url = url + str(x)
+        r = requests.get(search_url)
+        soup = BeautifulSoup(r.text, 'lxml')
+    
+        boxes = soup.findAll('ul', {"class": "m-PromoList o-Capsule__m-PromoList"})
+        
+        for box in boxes:
+            box_urls = [urls['href'] for urls in box.find_all('a', href = True)]
+            for x in box_urls:
+                url_list.append(x + '\n')
+
+        time.sleep(random.randint(1, 3))
+    
+    text_urls.writelines(url_list)
+
+    
+
+#subpage_search(base_url + '123/p/', page_search_length(base_url + '123'))
