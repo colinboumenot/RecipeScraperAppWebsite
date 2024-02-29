@@ -32,17 +32,19 @@ def subpage_search(url, pages):
     for x in range(1, pages + 1):
         search_url = url + str(x)
         r = requests.get(search_url)
-        soup = BeautifulSoup(r.text, 'lxml')
-    
-        boxes = soup.findAll('ul', {"class": "m-PromoList o-Capsule__m-PromoList"})
-        
-        for box in boxes:
-            box_urls = [urls['href'] for urls in box.find_all('a', href = True)]
-            for x in box_urls:
-                url_list.append(x + '\n')
 
-        # To avoid getting blocked
-        time.sleep(random.randint(1, 2))
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.text, 'lxml')
+    
+            boxes = soup.findAll('ul', {"class": "m-PromoList o-Capsule__m-PromoList"})
+        
+            for box in boxes:
+                box_urls = [urls['href'] for urls in box.find_all('a', href = True)]
+                for x in box_urls:
+                    url_list.append(x + '\n')
+
+            # To avoid getting blocked
+            time.sleep(random.randint(1, 2))
     
     text_urls.writelines(url_list)
     text_urls.close()
