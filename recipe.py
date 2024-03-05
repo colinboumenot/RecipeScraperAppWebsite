@@ -4,13 +4,9 @@ class Recipe:
         self.time = time
         self.servings = servings
         self.difficulty = diffuculty
-        self.ingredients = ingredients
+        self.ingredients_user_side = ingredients
         self.steps = steps
         self.tags = tags
-
-    #TODO: create method within Recipe to convert 
-    #     ingerdients from list to dictionary {amount:ingredient}
-    
 
     '''
     create methods to convert time to minutes to keep constent on backend
@@ -32,4 +28,15 @@ class Recipe:
                 min = int(time%60)
                 time = hr + " hr " + min + " min"
 
+    #TODO: translate the ingredients to a simplified version for backend calculations
+    #use this food vocab word list to match with food type https://www.enchantedlearning.com/wordlist/food.shtml 
+    #or this one https://www.oxfordlearnersdictionaries.com/us/topic/food 
+    def ingredients_to_backed(self):
+        pass
+
+    #TODO: create method within Recipe to convert 
+    #     ingerdients from list to dictionary {amount:ingredient}
+    def ingredient_to_dict(self, ingredients):
+        pass
+    
 
