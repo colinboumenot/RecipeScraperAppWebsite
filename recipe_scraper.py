@@ -1,11 +1,14 @@
-import recipe
+from recipe import Recipe
 import requests
 import time
 import random
 from bs4 import BeautifulSoup
 
-url = "https://www.foodnetwork.com/recipes/trisha-yearwood/un-fried-chicken-2282177"
+## Extension to add in front of scraped urls
+url_extension = "https:"
+
 def scrape_url(url):
+    url = url_extension + url
     r = requests.get(url)
 
     if r.status_code == 200:
@@ -16,8 +19,14 @@ def scrape_url(url):
             yield_amount = get_servings(soup)
             level = get_level(soup)
             ingredients = get_ingredients(soup)
+
+            ## TODO clean up steps further
             steps = get_steps(soup)
             tags = get_tags(soup)
+
+            recipe = Recipe(title, time, yield_amount, level, ingredients, steps, tags)
+
+            return recipe
 
     else:
           return
@@ -90,8 +99,16 @@ def get_tags(soup):
         tags = []
     return tags
 
-    
-    
 
+## Limiting to 5 requests per second at most, to avoid getting blocked, change depending on future results
 
-    
+counter = 0
+for line in open('recipe_urls.txt', 'r'):
+    counter += 1
+    recipe = scrape_url(line)
+
+    if counter == 5:
+        counter = 0
+        time.sleep(random.randint(1, 2))
+
+    ## TODO find somewhere to dump recipes
