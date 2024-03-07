@@ -104,11 +104,23 @@ def get_tags(soup):
 
 counter = 0
 for line in open('recipe_urls.txt', 'r'):
-    counter += 1
-    recipe = scrape_url(line)
 
-    if counter == 5:
-        counter = 0
-        time.sleep(random.randint(1, 2))
+    finished_list = open('finished_urls.txt', 'a+')
+    finished_list.seek(0)
+    contents = finished_list.read()
 
+    if line not in contents:
+        finished_list.writelines(line)
+        finished_list.close()
+
+        counter += 1
+        ##line = url_extension + line
+        ##recipe = scrape_url(line)
+
+        ##if counter == 5:
+            ##counter = 0
+            ##time.sleep(random.randint(1, 2))
+    else:
+        continue
+        
     ## TODO find somewhere to dump recipes
