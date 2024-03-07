@@ -6,11 +6,18 @@ import random
 from bs4 import BeautifulSoup
 
 
-recipe_list = []
+with open('recipe_data.pickle', 'rb') as f:
+    try:
+        recipe_list = pickle.load(f)
+    except:
+        recipe_list = []
+    f.close()
 
 with open('recipe_data.pickle', 'wb') as f:
     pickle.dump(recipe_list, f)
     f.close()
+
+
 
 ## Extension to add in front of scraped urls
 url_extension = "https:"
@@ -111,7 +118,7 @@ def get_tags(soup):
 
 ## Limiting to 5 requests per second at most, to avoid getting blocked, change depending on future results
 
-counter = 0
+##counter = 0
 for line in open('recipe_urls.txt', 'r'):
 
     finished_list = open('finished_urls.txt', 'a+')
@@ -119,25 +126,23 @@ for line in open('recipe_urls.txt', 'r'):
     contents = finished_list.read()
 
     if line not in contents:
-        finished_list.writelines(line)
-        finished_list.close()
 
-        counter += 1
+        ##counter += 1
         recipe = scrape_url(line)
 
         with open('recipe_data.pickle', 'rb') as f:
             recipe_list = pickle.load(f)
-            f.close()
-
+            
         recipe_list.append(recipe)
 
         with open('recipe_data.pickle', 'wb') as f:
             pickle.dump(recipe_list, f)
-            f.close()
+            finished_list.writelines(line)
+            finished_list.close()
 
-        if counter == 5:
-            counter = 0
-            time.sleep(random.randint(1, 2))
+        ##if counter == 5:
+            ##counter = 0
+            ##time.sleep(random.randint(1, 2))
     else:
         continue
         
