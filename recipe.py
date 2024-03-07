@@ -28,11 +28,22 @@ class Recipe:
                 min = int(time%60)
                 time = hr + " hr " + min + " min"
 
-    #TODO: translate the ingredients to a simplified version for backend calculations
-    #use this food vocab word list to match with food type https://www.enchantedlearning.com/wordlist/food.shtml 
-    #or this one https://www.oxfordlearnersdictionaries.com/us/topic/food 
+    '''TODO: translate the ingredients to a simplified version for backend calculations
+        use this food vocab word list to match with food typee https://www.oxfordlearnersdictionaries.com/us/topic/food 
+        return list of tuples (quantity, ingredient)
+
+        currently not time efficient -> look for more efficient way later
+    '''
     def ingredients_to_backed(self):
-        pass
+        foods = open('backend_food_names.txt', "r").readlines()
+        backend_ingredients = []
+        for ingredient in self.ingredients_user_side:
+            actual_food = ""
+            actual_quantity = 0
+            for food in foods:
+                if food in ingredient:
+                    actual_food = food
+
 
     #TODO: create method within Recipe to convert 
     #     ingerdients from list to dictionary {amount:ingredient}

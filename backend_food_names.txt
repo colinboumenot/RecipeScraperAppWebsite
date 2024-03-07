@@ -1,0 +1,802 @@
+acid drop
+aioli
+alfalfa
+allspice
+almond
+alphabet soup
+American cheese
+angel hair
+apple
+apple pie
+apricot
+arancini
+artichoke
+asparagus
+aubergine
+avocado
+bacon
+bagel
+baguette
+baked Alaska
+baked beans
+baked goods
+baked potato
+Bakewell tart
+baking
+baking flour
+baklava
+balsamic vinegar
+balti
+banana
+banana split
+banger
+banh mi
+banoffi pie
+bap
+barbacoa
+barbecue sauce
+barley
+barley sugar
+basil
+bay
+bay leaf
+bean
+bean curd
+beef
+beefburger
+beefsteak
+beet
+bell pepper
+bento
+berry
+besan
+bhaji
+bibimbap
+biltong
+biriani
+biriyani
+biscotti
+biscuit
+blackberry
+black cherry
+blackcurrant
+black pepper
+blancmange
+blintz
+blue cheese
+boiled sweet
+bombe
+bonbon
+borage
+boysenberry
+brandy snap
+bread
+bread-and-butter pudding
+breadcrumbs
+bread pudding
+bread roll
+breadstick
+breast
+Brie
+brinjal
+brioche
+brisket
+broad bean
+broccoli
+broth
+brownie
+brown rice
+bruschetta
+Brussels sprout
+bubblegum
+buckwheat
+Buffalo wings
+bulgar
+bulgogi
+bun
+burger
+burrito
+bushmeat
+butter
+butternut squash
+butterscotch
+Béarnaise sauce
+béchamel
+cabbage
+cabinet pudding
+cake
+calabrese
+Camembert
+Canadian bacon
+canapé
+candy
+candy cane
+candyfloss
+cannelloni
+cantaloupe
+carbohydrate
+carob
+carpaccio
+carrot
+cashew
+cassava
+casserole
+cassoulet
+catsup
+cauliflower
+cauliflower cheese
+caviar
+celeriac
+celery
+cereal
+challah
+chapatti
+chard
+charlotte
+Cheddar
+cheese
+cheeseboard
+cheeseburger
+cheesecake
+cheese straw
+chef’s salad
+cherry
+chervil
+chestnut
+chewing gum
+chicken
+chicken-fried steak
+chicken rice
+chickpea
+chickpea flour
+chicory
+chili
+chili dog
+chilli
+chilli con carne
+Chinese cabbage
+chip
+chipped beef
+chives
+chocolate
+chop suey
+chorizo
+chow mein
+Christmas pudding
+chutney
+ciabatta
+cinnamon
+citrus
+clementine
+clotted cream
+clove
+cocktail
+coconut
+coconut milk
+cocoyam
+cold cuts
+comfit
+compote
+confit
+cookie
+coq au vin
+coriander
+corn
+cornbread
+corn dog
+cornflakes
+cornflour
+corn on the cob
+corn pone
+cornstarch
+coronation chicken
+cottage cheese
+cotton candy
+courgette
+couscous
+crab
+crab apple
+cracked wheat
+cracker
+cracknel
+cranberry
+cream
+cream cheese
+cream cracker
+cress
+crisp
+crispbread
+croissant
+croquette
+crowdie
+crumb
+crumble
+crumpet
+crêpe
+cucumber
+cumin
+curd cheese
+currant
+curry
+curry leaf
+curry powder
+custard
+custard apple
+cut
+cutlet
+daikon
+dairy
+Danish blue
+Danish pastry
+dark meat
+date
+dessert
+dewberry
+digestive biscuit
+dill
+dim sum
+dip
+doner kebab
+donut
+dopiaza
+dosa
+dough
+doughnut
+dragon fruit
+dressing
+dripping
+drop
+drumstick
+duck
+duckling
+dumpling
+durian
+durum
+eclair
+Edam
+egg
+eggplant
+eggs Benedict
+Emmental
+enchilada
+energy bar
+escalope
+faggot
+fajitas
+falafel
+farfalle
+fat
+felafel
+fennel
+fenugreek
+feta cheese
+fettuccine
+fig
+filet
+fillet
+fines herbes
+finger food
+fish
+fish and chips
+fishcake
+flan
+flapjack
+flesh
+florentine
+flour
+fondant
+fondue
+fool
+fortune cookie
+fowl
+frankfurter
+French bread
+fried rice
+fritter
+fromage frais
+frosting
+fruit
+fruit salad
+fudge
+fusilli
+gammon
+garbanzo
+garibaldi
+garlic
+gateau
+gigot
+ginger
+gingerbread
+ginger nut
+globe artichoke
+goat cheese
+gobstopper
+goose
+gooseberry
+Gorgonzola
+Gouda
+goulash
+graham cracker
+grain
+gram flour
+granita
+grape
+grapefruit
+gratin
+gravy
+Greek salad
+Greek yogurt
+green
+green bean
+greengage
+green onion
+green pepper
+green vegetable
+gristle
+groundnut
+grouse
+Gruyère
+guacamole
+guava
+guinea fowl
+gulab jamun
+gum
+gumball
+gumdrop
+gur
+haggis
+halloumi™
+halwa
+ham
+hamburger
+hard candy
+hash
+hash browns
+hazelnut
+herb
+hoagie
+hollandaise sauce
+honey
+horseradish
+hot cross bun
+hot dog
+hotpot
+houmous
+huckleberry
+hummus
+iceberg lettuce
+ice cream
+ice lolly
+icing
+Irish stew
+Jack cheese
+jacket potato
+jackfruit
+jaggery
+jam
+jambalaya
+jawbreaker™
+jelly
+jelly baby
+jelly bean
+jerky
+Jerusalem artichoke
+joint
+kabob
+kaiser
+kale
+kebab
+ketchup
+kidney
+kimchi
+kipper
+kiwi fruit
+Knickerbocker Glory
+kofta
+kohlrabi
+korma
+kumquat
+laksa
+lamb
+Lancashire hotpot
+lard
+lasagne
+leek
+lemon
+lemongrass
+lentil
+lettuce
+lichee
+licorice
+lime
+linguine
+liquorice
+litchi
+liver
+loaf
+lobster
+lobster thermidor
+loganberry
+loin
+lollipop
+lolly
+loquat
+lovage
+luncheon meat
+lunch meat
+lychee
+macadamia
+macaron
+macaroni
+macaroni cheese
+macaroon
+mace
+madras
+maize
+mandarin
+mango
+mangosteen
+manioc
+maple syrup
+margarine
+marinara
+marjoram
+marmalade
+marrow
+marshmallow
+marzipan
+masa
+masala
+mascarpone
+matzo
+mayonnaise
+meal
+meat
+meatball
+melon
+meringue
+methi
+milk pudding
+millet
+mince
+mince pie
+minestrone
+mint
+mixed grill
+Monterey Jack
+mooli
+mousse
+mousseline
+mozzarella
+Muenster
+muesli
+muffin
+mushroom
+mustard
+mutton
+naan
+nachos
+nan
+nasi lemak
+nectarine
+noodle
+nougat
+nut
+nutmeg
+oatcake
+oatmeal
+oats
+offal
+oil
+okra
+olive
+olive oil
+omelette
+onion
+open-faced sandwich
+oregano
+orzo
+pad thai
+paella
+pancake
+pancetta
+pandowdy
+paneer
+panini
+panir
+panna cotta
+pap
+papaya
+paprika
+paratha
+Parmesan
+parsley
+parsnip
+passion fruit
+pasta
+paste
+pastille
+pastry
+pasty
+pavlova
+pawpaw
+pea
+peach
+peach Melba
+peanut
+peanut butter
+pear
+pecan
+pecorino
+pepper
+peppermint
+persimmon
+pesto
+petit four
+pheasant
+pho
+pickle
+pie
+pigs in blankets
+pineapple
+pip
+piri-piri
+pistachio
+pita
+pitta
+pizza
+plain flour
+plantain
+plum
+polenta
+pomegranate
+pomelo
+pone
+popcorn
+poppadom
+pork
+porridge
+potato
+pot cheese
+pot pie
+poultry
+poutine
+praline
+preserve
+pretzel
+prickly pear
+prosciutto
+prune
+pud
+pudding
+pulled pork
+pulse
+pumpernickel
+pumpkin
+purée
+pâté
+quark
+quesadilla
+quiche
+quince
+rabbit
+rack
+radicchio
+radish
+ragout
+raisin
+rambutan
+rarebit
+rasher
+raspberry
+ratatouille
+ravioli
+redcurrant
+red meat
+red pepper
+relish
+rendang
+rhubarb
+rib
+rice
+rice pudding
+ricotta
+rigatoni
+risotto
+rissole
+roast
+rock
+rock candy
+roe
+rogan josh
+roll
+root
+Roquefort™
+rosemary
+roti
+rump
+runner bean
+rusk
+rutabaga
+rye
+saccharin
+saffron
+sage
+salad
+salad cream
+salad dressing
+salami
+salmonberry
+salsa
+salt
+sambal
+samphire
+sandwich
+sarnie
+satay
+satsuma
+sauce
+sauerkraut
+sausage
+sausage meat
+savoury
+scallion
+scampi
+schnitzel
+scone
+scrod
+seafood
+seakale
+segment
+self-raising flour
+self-rising flour
+semolina
+shallot
+shawarma
+shepherd’s pie
+sherbet
+shish kebab
+shortbread
+short ribs
+shoulder
+sirloin
+skin
+slider
+sloe
+sloppy joe
+soda bread
+sorbet
+sorrel
+soufflé
+soup
+sour cream
+sourdough
+souvlaki
+soya
+soya bean
+soy sauce
+spaghetti
+spaghetti bolognese
+spam
+spare rib
+spearmint
+spelt
+spice
+spinach
+sponge
+sponge cake
+sponge pudding
+spotted dick
+spring onion
+sprout
+spud
+star anise
+star fruit
+steak
+stem ginger
+stew
+sticky rice
+sticky toffee pudding
+Stilton™
+stir-fry
+stock
+strawberry
+string bean
+string cheese
+stroganoff
+stuffing
+succotash
+suet
+sugar
+sugarplum
+sultana
+summer pudding
+sundae
+sushi
+swede
+sweet
+sweet pepper
+sweet potato
+Swiss chard
+Swiss cheese
+syllabub
+syrup
+Tabasco™
+tabbouleh
+tabouli
+taco
+taffy
+tagliatelle
+tamarind
+tangelo
+tangerine
+taramasalata
+tarragon
+tart
+tartare sauce
+tayberry
+tempeh
+tenderloin
+teriyaki
+terrine
+Thousand Island dressing
+thyme
+tian
+tikka
+tikka masala
+tiramisu
+toad-in-the-hole
+toast
+toffee
+tofu
+tollhouse cookie
+tomato
+tomato ketchup
+tortellini
+tortilla
+trail mix
+treacle
+trifle
+truffle
+tunny
+turkey
+Turkish delight
+turmeric
+turnip
+tzatziki
+ugali
+vanilla
+variety meats
+veal
+veg
+vegetable
+venison
+vermicelli
+vindaloo
+vinegar
+wafer
+waffle
+Wagyu
+walnut
+wasabi
+water biscuit
+watercress
+water ice
+watermelon
+wax bean
+Welsh rarebit
+wheat
+wheatmeal
+white
+white bread
+white flour
+white meat
+white sauce
+wine gum
+wing
+Worcestershire sauce
+yam
+yogurt
+yolk
+yuzu
+zucchini
