@@ -1,14 +1,23 @@
 from recipe import Recipe
 import requests
+import pickle
 import time
 import random
 from bs4 import BeautifulSoup
+
+
+recipe_list = []
+
+with open('recipe_data.pickle', 'wb') as f:
+    pickle.dump(recipe_list, f)
+    f.close()
 
 ## Extension to add in front of scraped urls
 url_extension = "https:"
 
 def scrape_url(url):
     url = url_extension + url
+    url = url.strip()
     r = requests.get(url)
 
     if r.status_code == 200:
@@ -114,12 +123,21 @@ for line in open('recipe_urls.txt', 'r'):
         finished_list.close()
 
         counter += 1
-        ##line = url_extension + line
-        ##recipe = scrape_url(line)
+        recipe = scrape_url(line)
 
-        ##if counter == 5:
-            ##counter = 0
-            ##time.sleep(random.randint(1, 2))
+        with open('recipe_data.pickle', 'rb') as f:
+            recipe_list = pickle.load(f)
+            f.close()
+
+        recipe_list.append(recipe)
+
+        with open('recipe_data.pickle', 'wb') as f:
+            pickle.dump(recipe_list, f)
+            f.close()
+
+        if counter == 5:
+            counter = 0
+            time.sleep(random.randint(1, 2))
     else:
         continue
         
