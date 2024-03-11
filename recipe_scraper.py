@@ -45,7 +45,7 @@ def scrape_url(url):
             return recipe
 
     else:
-          return
+          return None
 
 
 ## Series of Helper Methods to scrape individual components of the webpage
@@ -130,10 +130,12 @@ for line in open('recipe_urls.txt', 'r'):
         ##counter += 1
         recipe = scrape_url(line)
 
+
         with open('recipe_data.pickle', 'rb') as f:
             recipe_list = pickle.load(f)
-            
-        recipe_list.append(recipe)
+        
+        if recipe is not None:
+            recipe_list.append(recipe)
 
         with open('recipe_data.pickle', 'wb') as f:
             pickle.dump(recipe_list, f)
@@ -144,6 +146,7 @@ for line in open('recipe_urls.txt', 'r'):
             ##counter = 0
             ##time.sleep(random.randint(1, 2))
     else:
+        finished_list.close()
         continue
         
     ## TODO find somewhere to dump recipes
