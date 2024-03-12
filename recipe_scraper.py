@@ -6,14 +6,14 @@ import random
 from bs4 import BeautifulSoup
 
 
-with open('recipe_data.pickle', 'rb') as f:
+with open('all_recipes.pickle', 'rb') as f:
     try:
         recipe_list = pickle.load(f)
     except:
         recipe_list = []
     f.close()
 
-with open('recipe_data.pickle', 'wb') as f:
+with open('all_recipes.pickle', 'wb') as f:
     pickle.dump(recipe_list, f)
     f.close()
 
@@ -144,13 +144,13 @@ for line in open('recipe_urls.txt', 'r'):
         recipe = scrape_url(line)
 
         time_three = time()
-        with open('recipe_data.pickle', 'rb') as f:
+        with open('all_recipes.pickle', 'rb') as f:
             recipe_list = pickle.load(f)
         
         if recipe is not None:
             recipe_list.append(recipe)
 
-        with open('recipe_data.pickle', 'wb') as f:
+        with open('all_recipes.pickle', 'wb') as f:
             pickle.dump(recipe_list, f)
             finished_list.writelines(line)
             finished_list.close()
