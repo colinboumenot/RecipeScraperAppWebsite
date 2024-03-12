@@ -1,7 +1,7 @@
 from recipe import Recipe
 import requests
 import pickle
-import time
+from time import time, sleep
 import random
 from bs4 import BeautifulSoup
 
@@ -17,21 +17,28 @@ with open('recipe_data.pickle', 'wb') as f:
     pickle.dump(recipe_list, f)
     f.close()
 
-
+## Attempt to speed up request time by reusing connection
+session = requests.Session()
 
 ## Extension to add in front of scraped urls
 url_extension = "https:"
 
 def scrape_url(url):
+
+    start_time = time()
+
     url = url_extension + url
     url = url.strip()
-    r = requests.get(url)
+    session = requests.get(url)
 
-    if r.status_code == 200:
-            soup = BeautifulSoup(r.text, 'lxml')
+    ## Time for completing request
+    print(f"Fetch {(time() - start_time)}")
+
+    if session.status_code == 200:
+            soup = BeautifulSoup(session.text, 'lxml')
 
             title = get_title(soup)
-            time = get_time(soup)
+            timeing = get_time(soup)
             yield_amount = get_servings(soup)
             level = get_level(soup)
             ingredients = get_ingredients(soup)
@@ -40,7 +47,10 @@ def scrape_url(url):
             steps = get_steps(soup)
             tags = get_tags(soup)
 
-            recipe = Recipe(title, time, yield_amount, level, ingredients, steps, tags)
+            recipe = Recipe(title, timeing, yield_amount, level, ingredients, steps, tags)
+
+            ## Timing for scraping website
+            ##print(f"Scrape {(time() - start_time)}")
 
             return recipe
 
@@ -118,19 +128,22 @@ def get_tags(soup):
 
 ## Limiting to 5 requests per second at most, to avoid getting blocked, change depending on future results
 
-##counter = 0
+## counter = 0
 for line in open('recipe_urls.txt', 'r'):
 
+    ## Not most efficient way, but helps slow down time between requests
+    time_one = time()
     finished_list = open('finished_urls.txt', 'a+')
     finished_list.seek(0)
     contents = finished_list.read()
+    time_two = time() - time_one
 
     if line not in contents:
 
-        ##counter += 1
+        ## counter += 1
         recipe = scrape_url(line)
 
-
+        time_three = time()
         with open('recipe_data.pickle', 'rb') as f:
             recipe_list = pickle.load(f)
         
@@ -142,9 +155,12 @@ for line in open('recipe_urls.txt', 'r'):
             finished_list.writelines(line)
             finished_list.close()
 
-        ##if counter == 5:
-            ##counter = 0
-            ##time.sleep(random.randint(1, 2))
+        ## if counter == 5:
+            ## counter = 0
+            ## sleep(random.randint(1, 2))
+
+        ## Timing for managing data after scraping
+        ##print(f"Process {time() - time_three + time_two}")
     else:
         finished_list.close()
         continue
