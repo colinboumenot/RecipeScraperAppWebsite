@@ -133,7 +133,7 @@ challah
 chapatti
 chard
 charlotte
-Cheddar
+cheddar
 cheese
 cheeseboard
 cheeseburger
@@ -200,6 +200,7 @@ cracked wheat
 cracker
 cracknel
 cranberry
+cranberries
 cream
 cream cheese
 cream cracker
@@ -463,7 +464,7 @@ mince pie
 minestrone
 mint
 mixed grill
-Monterey Jack
+monterey jack
 mooli
 mousse
 mousseline
@@ -509,7 +510,7 @@ pap
 papaya
 paprika
 paratha
-Parmesan
+parmesan
 parsley
 parsnip
 passion fruit
@@ -803,3 +804,33 @@ zucchini
 raspberries
 strawberries
 jalapeno
+shrimp
+cilantro
+orange
+half and half
+tuna
+calabaza
+cherries
+hominy
+capers
+caper liquid
+guajillo chile
+ancho chile
+pasilla chile
+sake
+sesame marinade
+ghee
+calamari
+sprinkles
+nonpareils
+ladyfingers
+clams
+quinoa
+edamame
+serrano
+coffee
+rouget
+prawns
+sesame seeds
+taro
+scallops
