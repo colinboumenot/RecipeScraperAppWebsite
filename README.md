@@ -17,3 +17,9 @@ The goal of our project is to create an application, where you can enter and sav
 2) Choose and prepare the Database
 3) Fill in and Create the Database
 4) Sort and Double check all the data before transferring focus to making the App
+
+**Sprint 1 Goals**
+1) Finish coding in the Database Interaction Class
+2) Create a working UI that takes User Input
+3)  Clean up the Ingridients
+4)  Cleaning and figuring out how to dealn with recipe Exceptions
