@@ -800,3 +800,6 @@ yogurt
 yolk
 yuzu
 zucchini
+raspberries
+strawberries
+jalapeno
