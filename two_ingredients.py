@@ -20,7 +20,7 @@ def plural_to_singular(ingredients):
     p = inflect.engine()
     new_ingredients = []
     for ingredient in ingredients:
-        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '')
+        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('/', ' ').replace('.', '')
         ## Handle parentheses later
         singular_phrase = []
         for word in ingredient.split(' '):
