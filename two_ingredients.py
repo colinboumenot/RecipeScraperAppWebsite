@@ -5,67 +5,89 @@ import inflect
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
     recipes = pickle.load(f)
 
-foods = set(x.strip() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
-recipe = recipes[0]
+temp_recipes = recipes
+recipes = []
 
-## Converting plural to singular to avoid having to enter same ingredients multiple times
-p = inflect.engine()
-new_ingredients = []
-for x in recipe.ingredients:
-    x = x.replace(',', '')
-    singular_phrase = []
-    for y in x.split(' '):
-        singular = p.singular_noun(y)
-        if singular is not False:
-            singular_phrase.append(singular)
-        else:
-            singular_phrase.append(y)
-    new_ingredients.append(" ".join(singular_phrase).lower())
-recipe.ingredients = new_ingredients
+for item in temp_recipes:
+    if item is not None:
+        recipes.append(item)
 
-print(recipe.ingredients)
+foods = set(x.strip().lower() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
 
-matches = []
-for ingredient in recipe.ingredients:
-    temp = []
-    for food in foods:
-        if food in ingredient and len(set(food.split(' ')).intersection(set(ingredient.split(' ')))) == len(food.split(' ')):
-                duplicate = False
-                for x in temp:
-                    if food in x:
-                        duplicate = True
-                    if x in food:
-                        temp.remove(x)
-                if not duplicate:
-                    temp.append(food)
-    for x in temp:
-        matches.append(x)
 
-    
-print(matches)
+## Convert all plural nouns to singular, reduces ingredients that need to be entered into food names
+def plural_to_singular(ingredients):
+    p = inflect.engine()
+    new_ingredients = []
+    for ingredient in ingredients:
+        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '')
+        ## Handle parentheses later
+        singular_phrase = []
+        for word in ingredient.split(' '):
+            word = word.strip()
+            if word:
+                singular = p.singular_noun(word)
 
-x = 0
+            if singular is not False:
+                singular_phrase.append(singular)
+            else:
+                singular_phrase.append(word)
+        new_ingredients.append(" ".join(singular_phrase).lower())
+    return new_ingredients
 
-for recipe in recipes:
-    if recipe is not None:
-        for ingredient in recipe.ingredients:
-            ingredient = ingredient.split(',')[0]
-            if 'and' in ingredient.split(' '):
-                ingredient = ingredient.split(' ')
-                half_one = ' '.join(ingredient[:ingredient.index('and')]).lower()
-                half_two = ' '.join(ingredient[ingredient.index('and') + 1:]).lower()
-                ## print(f"1 - {ingredient.split('and')[0]} 2 - {ingredient.split('and')[1]}")
-                matches = []
-                for food in foods:
-                    if food in half_one:
-                        matches.append(food)
-                    if food in half_two:
-                        matches.append(food)
-                if len(matches) == 0:
-                    ## print(f"1 - {half_one} 2 - {half_two}")
-                    with open('raw_data/unknown_ingredients.txt', 'a') as f:
-                        f.write(' '.join(ingredient) + '\n')
-                    x += 1
 
-print(x)
+def get_ingredients(recipe):
+    matches = []
+    for ingredient in recipe.ingredients:
+        temp = []
+        duplicates = []
+        for food in foods:
+            if food in ingredient and len(set(food.split(' ')).intersection(set(ingredient.split(' ')))) == len(food.split(' ')):
+                    duplicate = False
+                    for previous in temp:
+                        if food in previous:
+                            duplicate = True
+                        if previous in food:
+                            duplicates.append(previous)
+                    if not duplicate:
+                        temp.append(food)
 
+        for item in duplicates:
+            if item in temp:
+                temp.remove(item)
+        
+        ## Edge case with garlic
+        
+        if 'garlic' in temp:
+            if 'clove' in temp:
+                temp.remove('clove')
+            if 'cloves' in temp:
+                temp.remove('cloves')
+
+        if len(temp) == 0:
+            if 'water' in set(ingredient.split(' ')) or 'ice' in set(ingredient.split(' ')) or 'cooking spray' in ingredient:
+                continue
+            elif 'recipe follow' in ingredient:
+                continue
+            else:
+                with open('raw_data/unknown_ingredients.txt', 'a') as f:
+                    f.write('no ingredient ' + ingredient + '\n')
+        ##if len(temp) == 1 and ('and' in ingredient or 'or' in ingredient):
+            ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
+                ##f.write('and or ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
+        ##if len(temp) > 1:
+            ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
+                ##f.write('multiple ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
+        for x in temp:
+            matches.append(x)
+    return matches
+
+# recipe.ingredients = plural_to_singular(recipe.ingredients)
+# print(get_ingredients(recipe))
+
+print(len(recipes))
+
+for x in range(10000):
+    recipe = recipes[x]
+    recipe.ingredients = plural_to_singular(recipe.ingredients)
+    get_ingredients(recipe)
