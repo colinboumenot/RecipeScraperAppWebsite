@@ -1,6 +1,6 @@
 from recipe import Recipe
 import pickle
-import inflect 
+## import inflect 
 
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
     recipes = pickle.load(f)
@@ -14,6 +14,7 @@ for item in temp_recipes:
 
 foods = set(x.strip().lower() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
 
+edge_cases = ['watercress', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'hummus', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus']
 
 ## Convert all plural nouns to singular, reduces ingredients that need to be entered into food names
 def plural_to_singular(ingredients):
@@ -25,8 +26,10 @@ def plural_to_singular(ingredients):
         singular_phrase = []
         for word in ingredient.split(' '):
             word = word.strip()
-            if word:
+            if word not in edge_cases and "'s" not in word:
                 singular = p.singular_noun(word)
+            else:
+                singular = False
 
             if singular is not False:
                 singular_phrase.append(singular)
@@ -87,7 +90,13 @@ def get_ingredients(recipe):
 
 print(len(recipes))
 
-for x in range(10000):
-    recipe = recipes[x]
-    recipe.ingredients = plural_to_singular(recipe.ingredients)
-    get_ingredients(recipe)
+## for x in range(10000):
+    ##recipe = recipes[x]
+    ##recipe.ingredients = plural_to_singular(recipe.ingredients)
+    ##get_ingredients(recipe)
+
+input_file = "raw_data/backend_food_names.txt"
+output_file = "raw_data/sorted_food_names.txt"
+with open(input_file) as f:
+    with open(output_file, "w") as o:
+        o.write("\n".join(sorted(f.read().splitlines())))
