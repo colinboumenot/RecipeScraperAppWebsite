@@ -101,7 +101,7 @@ def get_ingredients(recipe):
 
 print(len(recipes))
 
-## for x in range(10000):
+## for x in range(20000, len(recipes)):
     ##recipe = recipes[x]
     ##recipe.ingredients = plural_to_singular(recipe.ingredients)
     ##get_ingredients(recipe)
