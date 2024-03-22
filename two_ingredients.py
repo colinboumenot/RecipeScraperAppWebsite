@@ -1,6 +1,6 @@
 from recipe import Recipe
 import pickle
-## import inflect 
+import inflect 
 
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
     recipes = pickle.load(f)
@@ -26,10 +26,11 @@ def plural_to_singular(ingredients):
         singular_phrase = []
         for word in ingredient.split(' '):
             word = word.strip()
-            if word not in edge_cases and "'s" not in word:
-                singular = p.singular_noun(word)
-            else:
-                singular = False
+            if word != '':
+                if word not in edge_cases and "'s" not in word:
+                    singular = p.singular_noun(word)
+                else:
+                    singular = False
 
             if singular is not False:
                 singular_phrase.append(singular)
@@ -68,7 +69,8 @@ def get_ingredients(recipe):
                 temp.remove('cloves')
 
         if len(temp) == 0:
-            if 'water' in set(ingredient.split(' ')) or 'ice' in set(ingredient.split(' ')) or 'cooking spray' in ingredient:
+            ingredient = ingredient.replace('(', '').replace(')', '')
+            if 'water' in set(ingredient.split(' ')) or 'ice' in set(ingredient.split(' ')) or 'cooking spray' in ingredient or 'optional' in set(ingredient.split(' ')):
                 continue
             elif 'recipe follow' in ingredient:
                 continue
@@ -90,13 +92,13 @@ def get_ingredients(recipe):
 
 print(len(recipes))
 
-## for x in range(10000):
-    ##recipe = recipes[x]
-    ##recipe.ingredients = plural_to_singular(recipe.ingredients)
-    ##get_ingredients(recipe)
+for x in range(10000, 20000):
+    recipe = recipes[x]
+    recipe.ingredients = plural_to_singular(recipe.ingredients)
+    get_ingredients(recipe)
 
-input_file = "raw_data/backend_food_names.txt"
-output_file = "raw_data/sorted_food_names.txt"
-with open(input_file) as f:
-    with open(output_file, "w") as o:
-        o.write("\n".join(sorted(f.read().splitlines())))
+##input_file = "raw_data/backend_food_names.txt"
+##output_file = "raw_data/sorted_food_names.txt"
+##with open(input_file) as f:
+    ##with open(output_file, "w") as o:
+        ##o.write("\n".join(sorted(f.read().splitlines())))
