@@ -1,6 +1,6 @@
 from recipe import Recipe
 import pickle
-## import inflect 
+import inflect 
 
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
     recipes = pickle.load(f)
@@ -26,8 +26,8 @@ def plural_to_singular(ingredients):
         singular_phrase = []
         for word in ingredient.split(' '):
             word = word.strip()
-            if word not in edge_cases and "'s" not in word:
-                singular = p.singular_noun(word)
+            if word not in edge_cases and "'s" not in word and word != '':
+                    singular = p.singular_noun(word)
             else:
                 singular = False
 
@@ -101,7 +101,7 @@ def get_ingredients(recipe):
 
 print(len(recipes))
 
-## for x in range(20000, len(recipes)):
-    ##recipe = recipes[x]
-    ##recipe.ingredients = plural_to_singular(recipe.ingredients)
-    ##get_ingredients(recipe)
+for x in range(20000, len(recipes)):
+    recipe = recipes[x]
+    recipe.ingredients = plural_to_singular(recipe.ingredients)
+    get_ingredients(recipe)
