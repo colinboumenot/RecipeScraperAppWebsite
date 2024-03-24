@@ -1,6 +1,6 @@
 from recipe import Recipe
 import pickle
-import inflect 
+## import inflect 
 
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
     recipes = pickle.load(f)
@@ -14,7 +14,7 @@ for item in temp_recipes:
 
 foods = set(x.strip().lower() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
 
-edge_cases = ['watercress', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'hummus', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass']
+edge_cases = ['watercress', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'hummus', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass', 'moss']
 
 ## Convert all plural nouns to singular, reduces ingredients that need to be entered into food names
 def plural_to_singular(ingredients):
@@ -101,7 +101,15 @@ def get_ingredients(recipe):
 
 print(len(recipes))
 
-for x in range(20000, len(recipes)):
-    recipe = recipes[x]
-    recipe.ingredients = plural_to_singular(recipe.ingredients)
-    get_ingredients(recipe)
+## for x in range(20000, len(recipes)):
+    ## recipe = recipes[x]
+    ## recipe.ingredients = plural_to_singular(recipe.ingredients)
+    ## get_ingredients(recipe)
+
+## Helper method to sort ingredient file alphabetically
+## def sort_file(input_file, output_file):
+    ## with open(input_file) as f:
+        ## with open(output_file, "w") as o:
+            ## o.write("\n".join(sorted(f.read().splitlines())))
+
+## sort_file("raw_data/backend_food_names.txt", "raw_data/food_names.txt")
