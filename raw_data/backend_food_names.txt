@@ -1,9 +1,12 @@
 'nduja
 'ulu
+chicken stock
 American cheese
 Bakewell tart
 Brie
+red bell pepper
 Brussels sprout
+orange bell pepper
 Buffalo wings
 Béarnaise sauce
 Camembert
@@ -1602,7 +1605,6 @@ shoyu
 shredded colby-jack
 shrimp
 sirloin
-skin
 slider
 slivovitz
 sloe
