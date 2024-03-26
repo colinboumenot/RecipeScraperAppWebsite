@@ -14,7 +14,7 @@ for item in temp_recipes:
 
 foods = set(x.strip().lower() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
 
-edge_cases = ['watercress', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'hummus', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass', 'moss']
+edge_cases = ['watercress', 'delicious', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'seabass', 'angus', 'cablres', 'ras', 'hummus', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass', 'moss', 'jus']
 
 ## Convert all plural nouns to singular, reduces ingredients that need to be entered into food names
 def plural_to_singular(ingredients):
