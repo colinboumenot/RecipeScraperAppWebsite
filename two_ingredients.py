@@ -8,7 +8,6 @@ with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
 
 temp_recipes = recipes
 recipes = []
-new_ingredients = set()
 
 for item in temp_recipes:
     if item is not None:
@@ -81,8 +80,6 @@ def multiple_ingredient_error(ingredient, matches):
         start, edited_matches, new_ingredient = build_new_ingredient(ingredient, edited_matches, start)
         if new_ingredient != '':
             ingredients.append(new_ingredient)
-            if new_ingredient not in foods:
-                new_ingredients.add(new_ingredient)
 
     ## print(ingredients)
 
@@ -140,17 +137,17 @@ def get_ingredients(recipe):
         ##if len(temp) == 1 and ('and' in ingredient or 'or' in ingredient):
             ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
                 ##f.write('and or ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
-        if (len(temp) > 1):
-            if 'or' in ingredient.split(' '):
-                continue
-            elif 'and' in ingredient.split(' '):
-                continue
-            elif 'such as' in ingredient or 'recipe follow' in ingredient or 'optional' in ingredient:
-                continue
-            else:
-                multiple_ingredient_error(ingredient, temp)
-                with open('raw_data/unknown_ingredients.txt', 'a') as f:
-                    f.write('multiple ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
+        ## if (len(temp) > 1):
+            ## if 'or' in ingredient.split(' '):
+                ## continue
+            ##elif 'and' in ingredient.split(' '):
+                ##continue
+           ## elif 'such as' in ingredient or 'recipe follow' in ingredient or 'optional' in ingredient:
+               ## continue
+           ## else:
+               ## multiple_ingredient_error(ingredient, temp)
+                ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
+                   ## f.write('multiple ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
         for x in temp:
             matches.append(x)
     return matches
@@ -160,10 +157,10 @@ def get_ingredients(recipe):
 
 print(len(recipes))
 
-for x in range(20000, len(recipes)):
-    recipe = recipes[x]
-    recipe.ingredients = plural_to_singular(recipe.ingredients)
-    get_ingredients(recipe)
+## for x in range(20000, len(recipes)):
+    ## recipe = recipes[x]
+    ## recipe.ingredients = plural_to_singular(recipe.ingredients)
+    ## get_ingredients(recipe)
 
 ## Helper method to sort ingredient file alphabetically
 ## def sort_file(input_file, output_file):
@@ -173,6 +170,3 @@ for x in range(20000, len(recipes)):
 
 ## sort_file("raw_data/backend_food_names.txt", "raw_data/food_names.txt")
 
-with open('raw_data/new_ingredients.txt', 'w+') as f:
-    for x in new_ingredients:
-        f.write(x + '\n')
