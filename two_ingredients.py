@@ -16,14 +16,14 @@ for item in temp_recipes:
 foods = set(x.strip().lower() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
 
 ## Words that look plural but are really singular, brute force approach but still works
-edge_cases = ['watercress', 'delicious', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'seabass', 'angus', 'cablres', 'ras', 'hummus', 'fries', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass', 'moss', 'jus', 'as']
+edge_cases = ['watercress', 'delicious', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'seabass', 'angus', 'cablres', 'ras', 'hummus', 'fries', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass', 'moss', 'jus', 'as', 'asparagus']
 
 ## Convert all plural nouns to singular, reduces ingredients that need to be entered into food names
 def plural_to_singular(ingredients):
     p = inflect.engine()
     new_ingredients = []
     for ingredient in ingredients:
-        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('/', ' ').replace('.', '').replace('®', '').replace('è', 'e')
+        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('/', ' ').replace('.', '').replace('®', '').replace('è', 'e').replace('ñ', 'n')
         ## Handle parentheses later
         singular_phrase = []
         for word in ingredient.split(' '):
@@ -163,10 +163,10 @@ print(len(recipes))
     ## get_ingredients(recipe)
 
 ## Helper method to sort ingredient file alphabetically
-## def sort_file(input_file, output_file):
-    ## with open(input_file) as f:
-        ## with open(output_file, "w") as o:
-            ## o.write("\n".join(sorted(f.read().splitlines())))
+def sort_file(input_file, output_file):
+    with open(input_file) as f:
+        with open(output_file, "w") as o:
+            o.write("\n".join(sorted(f.read().splitlines())))
 
-## sort_file("raw_data/backend_food_names.txt", "raw_data/food_names.txt")
+sort_file("raw_data/backend_food_names.txt", "raw_data/food_names.txt")
 
