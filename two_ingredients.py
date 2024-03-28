@@ -2,9 +2,16 @@ from recipe import Recipe
 import pickle
 import inflect 
 import re
+import random
+
+recipes = []
 
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
-    recipes = pickle.load(f)
+    recipes.extend(pickle.load(f))
+with open('ScrapedRecipes/all_recipes_2.pickle', 'rb') as f:
+    recipes.extend(pickle.load(f))
+with open('ScrapedRecipes/all_recipes_3.pickle', 'rb') as f:
+    recipes.extend(pickle.load(f))
 
 temp_recipes = recipes
 recipes = []
@@ -13,7 +20,7 @@ for item in temp_recipes:
     if item is not None:
         recipes.append(item)
 
-foods = set(x.strip().lower() for x in open('raw_data/backend_food_names.txt', 'r+').readlines())
+foods = set(x.strip().lower() for x in open('raw_data/foodnetwork_ingredients.txt', 'r+').readlines())
 
 ## Words that look plural but are really singular, brute force approach but still works
 edge_cases = ['watercress', 'delicious', 'cress', 'peppercress', 'guinness', 'bass', 'christmas', 'grits', 'lotus', 'seabass', 'angus', 'cablres', 'ras', 'hummus', 'fries', 'skinless', "'s", 'octopus', 'pastis', 'hibiscus', 'molasses', 'lemongrass', 'couscous', 'cactus', 'citrus', 'bitters', 'swiss', 'gras', 'wheatgrass', 'moss', 'jus', 'as', 'asparagus']
@@ -23,6 +30,7 @@ def plural_to_singular(ingredients):
     p = inflect.engine()
     new_ingredients = []
     for ingredient in ingredients:
+        ## Certain characters that need to get filtered out from ingredient
         ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('/', ' ').replace('.', '').replace('®', '').replace('è', 'e').replace('ñ', 'n')
         ## Handle parentheses later
         singular_phrase = []
@@ -42,6 +50,7 @@ def plural_to_singular(ingredients):
 
 ## Takes string that has more ingredients than it should, and finds the individual ingredients oftentimes these ingredients are compounds
 ## Ex "pork shoulder" should be 1 ingredient, before this function 'pork' and 'shoulder' were two seperate ingredients
+## This function is used when trying to find new ingredients, not needed when checking already filtered recipes for ingredients
 def build_new_ingredient(ingredient, matches, start):
     new_ingredient = ''
     found_items = []
@@ -64,7 +73,7 @@ def build_new_ingredient(ingredient, matches, start):
         return -1, matches, new_ingredient.strip()
 
 
-## Called if too many ingredients detected
+## Called if too many ingredients detected, finds ingredient that oftentimes is compound of multiple ingredients Ex. Swiss Cheese is 1 ingredient, not 2
 def multiple_ingredient_error(ingredient, matches):
     ## print(f"{ingredient} matches: {matches}")
     ingredient = ingredient.split(' ')
@@ -84,16 +93,20 @@ def multiple_ingredient_error(ingredient, matches):
     ## print(ingredients)
 
 
-def get_ingredients(recipe):
+def get_ingredients(ingredients):
     matches = []
-    for ingredient in recipe.ingredients:
+    for ingredient in ingredients:
+        ## Optional ingredients or items with recipe follows or : indicate non-necessary items, or items that have ingredients layed out later in the recipe, as such they are not considered
+        if 'optional' in ingredient or 'recipe follow' in ingredient or ':' in ingredient:
+            continue
+        else:
         ## Get rid of contents inside parentheses, useful for determining units later on, but not for ingredients
-        ingredient = re.sub("[\(\[].*?[\)\]]", "", ingredient)
-        temp = []
-        duplicates = []
-        for food in foods:
-            ## Check first if food substring appears in ingredients, then check if words of substring appear in ingredient string as set
-            if food in ingredient and (len(set(food.split(' ')).intersection(set(ingredient.split(' ')))) == len(food.split(' '))):
+            ingredient = re.sub("[\(\[].*?[\)\]]", "", ingredient)
+            temp = []
+            duplicates = []
+            for food in foods:
+                ## Check first if food substring appears in ingredients, then check if words of substring appear in ingredient string as set
+                if food in ingredient and (len(set(food.split(' ')).intersection(set(ingredient.split(' ')))) == len(food.split(' '))):
                     duplicate = False
                     for previous in temp:
                         if food in previous:
@@ -103,7 +116,7 @@ def get_ingredients(recipe):
                     if not duplicate:
                         temp.append(food)
             ## Above method works for all ingredients besides half and half so far, since half and half as a set is only (half, and)
-            elif food in ingredient and food == 'half and half':
+                elif food in ingredient and food == 'half and half':
                     duplicate = False
                     for previous in temp:
                         if food in previous:
@@ -113,60 +126,66 @@ def get_ingredients(recipe):
                     if not duplicate:
                         temp.append(food)
 
-        for item in duplicates:
-            if item in temp:
-                temp.remove(item)
+            for item in duplicates:
+                if item in temp:
+                    temp.remove(item)
         
-        ## Edge case with garlic
+            ## Edge case with garlic
         
-        if 'garlic' in temp:
-            if 'clove' in temp:
-                temp.remove('clove')
-            if 'cloves' in temp:
-                temp.remove('cloves')
+            if 'garlic' in temp:
+                if 'clove' in temp:
+                    temp.remove('clove')
+                if 'cloves' in temp:
+                    temp.remove('cloves')
 
-        ## if len(temp) == 0:
-            ## if 'water' in set(ingredient.split(' ')) or 'ice' in set(ingredient.split(' ')) or 'cooking spray' in ingredient:
-                ## continue
-            ## elif 'recipe follow' in ingredient:
-                ## continue
-            ## else:
-                ## with open('raw_data/unknown_ingredients.txt', 'a') as f:
-                    ## f.write('no ingredient ' + ingredient + '\n')
-                ## pass
-        ##if len(temp) == 1 and ('and' in ingredient or 'or' in ingredient):
-            ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
-                ##f.write('and or ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
-        ## if (len(temp) > 1):
-            ## if 'or' in ingredient.split(' '):
-                ## continue
-            ##elif 'and' in ingredient.split(' '):
-                ##continue
-           ## elif 'such as' in ingredient or 'recipe follow' in ingredient or 'optional' in ingredient:
-               ## continue
-           ## else:
-               ## multiple_ingredient_error(ingredient, temp)
+        ## Below code was used to write errors for edgecases to a seperate file
+            ## if len(temp) == 0:
+                ## if 'water' in set(ingredient.split(' ')) or 'ice' in set(ingredient.split(' ')) or 'cooking spray' in ingredient:
+                    ## continue
+                ## elif 'recipe follow' in ingredient:
+                    ## continue
+                ## else:
+                    ## with open('raw_data/unknown_ingredients.txt', 'a') as f:
+                        ## f.write('no ingredient ' + ingredient + '\n')
+                    ## pass
+            ##if len(temp) == 1 and ('and' in ingredient or 'or' in ingredient):
                 ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
-                   ## f.write('multiple ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
-        for x in temp:
-            matches.append(x)
+                    ##f.write('and or ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
+            ## if (len(temp) > 1):
+                ## if 'or' in ingredient.split(' '):
+                    ## continue
+                ##elif 'and' in ingredient.split(' '):
+                    ##continue
+                ## elif 'such as' in ingredient or 'recipe follow' in ingredient or 'optional' in ingredient:
+                    ## continue
+                ## else:
+                    ## multiple_ingredient_error(ingredient, temp)
+                        ##with open('raw_data/unknown_ingredients.txt', 'a') as f:
+                            ## f.write('multiple ingredient ' + ingredient + ' ' + ' '.join(temp) + '\n')
+            for x in temp:
+                matches.append(x)
+
+
     return matches
 
-# recipe.ingredients = plural_to_singular(recipe.ingredients)
-# print(get_ingredients(recipe))
+cleaned_recipes = []
 
-print(len(recipes))
 
-## for x in range(20000, len(recipes)):
-    ## recipe = recipes[x]
-    ## recipe.ingredients = plural_to_singular(recipe.ingredients)
-    ## get_ingredients(recipe)
+random_sample = random.sample(range(0, len(recipes)), 200)
+sample_text = open('sample.txt', 'w+')
 
-## Helper method to sort ingredient file alphabetically
-def sort_file(input_file, output_file):
-    with open(input_file) as f:
-        with open(output_file, "w") as o:
-            o.write("\n".join(sorted(f.read().splitlines())))
+for x in random_sample:
+    recipe = recipes[x]
+    ingredients_singular = plural_to_singular(recipe.ingredients)
+    ingredients_cleaned = get_ingredients(ingredients_singular)
+    sample_text.writelines('original: ' + (" ".join(ingredients_singular)) + '\n')
+    sample_text.writelines('new: ' + (" ".join(ingredients_cleaned)) + '\n' + '\n')
+    print(f"Original {ingredients_singular}")
+    print(f"New {ingredients_cleaned}")
+    print('')
 
-sort_file("raw_data/backend_food_names.txt", "raw_data/food_names.txt")
+sample_text.close()
+
+## with open('cleaned_recipes.pickle', 'wb') as f:
+    ## pickle.dump(cleaned_recipes, f)
 

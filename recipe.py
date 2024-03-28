@@ -4,9 +4,13 @@ class Recipe:
         self.time = time
         self.servings = servings
         self.difficulty = diffuculty
+        self.ingredients = ingredients
         self.ingredients_user_side = ingredients
         self.steps = steps
         self.tags = tags
+    
+    def set_ingredients_user_side(self, ingredients):
+        self.ingredients_user_side = ingredients
 
 
 
