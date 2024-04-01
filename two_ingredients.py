@@ -171,20 +171,20 @@ def get_ingredients(ingredients):
 cleaned_recipes = []
 
 
-random_sample = random.sample(range(0, len(recipes)), 200)
-sample_text = open('sample.txt', 'w+')
+## random_sample = random.sample(range(0, len(recipes)), 200)
+## sample_text = open('sample.txt', 'w+')
 
-for x in random_sample:
-    recipe = recipes[x]
-    ingredients_singular = plural_to_singular(recipe.ingredients)
-    ingredients_cleaned = get_ingredients(ingredients_singular)
-    sample_text.writelines('original: ' + (" ".join(ingredients_singular)) + '\n')
-    sample_text.writelines('new: ' + (" ".join(ingredients_cleaned)) + '\n' + '\n')
-    print(f"Original {ingredients_singular}")
-    print(f"New {ingredients_cleaned}")
-    print('')
+## for x in random_sample:
+    ## recipe = recipes[x]
+    ## ingredients_singular = plural_to_singular(recipe.ingredients)
+    ## ingredients_cleaned = get_ingredients(ingredients_singular)
+    ## sample_text.writelines('original: ' + (" ".join(ingredients_singular)) + '\n')
+    ## sample_text.writelines('new: ' + (" ".join(ingredients_cleaned)) + '\n' + '\n')
+    ## print(f"Original {ingredients_singular}")
+    ## print(f"New {ingredients_cleaned}")
+    ## print('')
 
-sample_text.close()
+## sample_text.close()
 
 ## with open('cleaned_recipes.pickle', 'wb') as f:
     ## pickle.dump(cleaned_recipes, f)

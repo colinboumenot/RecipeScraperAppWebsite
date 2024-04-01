@@ -64,12 +64,14 @@ allspice
 allspice berry
 allspice peppercorn
 almond
+almond bark
 almond biscotti
 almond biscotti cookie
 almond blueberry coconut
 almond butter
 almond champagne
 almond crumb
+almond extract
 almond flour
 almond granola
 almond ice cream
@@ -145,6 +147,7 @@ apple eggplant
 apple hard candy
 apple jack brandy
 apple jelly
+apple juice
 apple liqueur
 apple mint
 apple pear
@@ -323,6 +326,7 @@ basil pesto sauce
 basil sauce
 basil syrup
 basil-garnish
+basmati rice
 bass
 bass fillet
 batata
@@ -499,6 +503,7 @@ bisquick heart smart mix
 bitters
 black bass
 black bass fillet
+black bean
 black bean salsa
 black cherry
 black cherry ice cream
@@ -681,7 +686,7 @@ browning fish
 browning sauce
 browning sausage
 bruschetta
-brussels sprout
+brussel sprout
 bubblegum
 bucatini
 bucatini pasta
@@ -844,6 +849,7 @@ cannelloni
 cannelloni bean
 cannelloni pasta shell
 cannoli shell
+canola oil
 cantaloupe
 cantaloupe melon
 caper
@@ -1029,6 +1035,7 @@ cheeseburger
 cheesecake
 cheesecake pudding
 cheeto
+cheez-it
 chef’s salad
 cherimoya
 cherry
@@ -1066,6 +1073,7 @@ chevre cheese
 chevre goat cheese
 chevre truffle
 chewing gum
+chex
 chia seed
 chicharrone
 chicken
@@ -1144,6 +1152,7 @@ chile pasilla
 chile paste
 chile pepper
 chile pepper paste
+chile powder
 chile salt
 chile sambal
 chile sauce
@@ -1165,6 +1174,7 @@ chili oil
 chili paste
 chili pepper
 chili poblano
+chili powder
 chili sauce
 chili seasoning
 chili seasoning blend
@@ -1225,6 +1235,7 @@ chocolate butter toffee
 chocolate buttercream
 chocolate cake
 chocolate cake doughnut
+chocolate cake mix
 chocolate candy
 chocolate cereal
 chocolate chai tea
@@ -1677,6 +1688,7 @@ cream frosting
 cream gravy
 cream liqueur
 cream maraschino cherry
+cream of tartar
 cream sherry
 cream soda
 cream stabilizer
@@ -2226,6 +2238,7 @@ garlic paste
 garlic pepper
 garlic pepper seasoning
 garlic pickle
+garlic powder
 garlic ranch dressing
 garlic root
 garlic saffron mayonnaise
@@ -2556,6 +2569,7 @@ grits
 ground achiote
 ground annatto
 ground annatto seed
+ground beef
 ground bison
 ground bison meat
 ground canela
@@ -2575,6 +2589,7 @@ ground egusi
 ground juniper
 ground juniper berry
 ground new zealand red deer
+ground pork
 ground round
 ground round beef
 ground round hamburger meat
@@ -2806,6 +2821,7 @@ hot dog mustard
 hot dog relish
 hot dog roll
 hotpot
+hot sauce
 houmous
 huacatay
 huacatay
@@ -2820,6 +2836,7 @@ i can't believe it's not butter!
 ibérico pluma
 ice cream
 ice cream bombe
+ice cream cone
 ice cream sandwich
 ice cream sauce
 ice cream shell
@@ -2876,6 +2893,7 @@ jam
 jamaican conch
 jambalaya
 jambon de bayonne
+jasmine rice
 jawbreaker
 jelly
 jelly baby
@@ -2945,6 +2963,7 @@ kielbasa
 kielbasa sausage
 kimchee
 kimchi
+king crab
 kipper
 kirmizi biber
 kirsch
@@ -3051,6 +3070,7 @@ lemon candy
 lemon confit
 lemon cookie
 lemon dressing
+lemon extract
 lemon gelatin
 lemon herb
 lemon ice cream
@@ -3058,6 +3078,7 @@ lemon iced tea
 lemon icing
 lemon jelly
 lemon jelly bean
+lemon juice
 lemon kombucha
 lemon lime
 lemon lime seltzer
@@ -3119,6 +3140,7 @@ lime candy
 lime cherry pineapple
 lime club soda
 lime gelatin
+lime juice
 lime liqueur
 lime paste
 lime pickle
@@ -3502,6 +3524,7 @@ mustard barbecue sauce
 mustard dijon
 mustard green
 mustard oil
+mustard seed
 mutton
 naan
 naan bread
@@ -3604,6 +3627,7 @@ onion jam
 onion kaiser roll
 onion mushroom soup
 onion parmesan dressing
+onion powder
 onion red pepper
 onion roll
 onion salt
@@ -3645,6 +3669,7 @@ orange gumdrop
 orange habanero pepper
 orange honey
 orange jelly bean
+orange juice
 orange lemon lime
 orange lentil
 orange liqueur
@@ -3873,6 +3898,7 @@ pear syrup
 pear tomato
 pear vinegar
 pear vodka
+pearl onion
 pearled farro
 pecan
 pecan liqueur
@@ -3972,6 +3998,7 @@ pickled tongue
 pico de gallo
 pico de gallo salsa
 pie
+pie crust
 pie dough
 pie shell
 piecrust
@@ -4038,6 +4065,7 @@ pinot noir
 pinot noir grape confit
 pinot noir red wine vinegar
 pinot noir wine
+pinto bean
 pip
 piping gel
 piri-piri
@@ -4272,6 +4300,7 @@ pud
 pudding
 pudding cake
 pudding sausage
+puffcorn
 puff-pastry
 puff-pastry dough
 pulled pork
@@ -4451,6 +4480,7 @@ red pepper cayenne
 red pepper chile flake
 red pepper chili
 red pepper cream cheese
+red pepper flake
 red pepper hummus
 red pepper jam
 red pepper jelly
@@ -4802,6 +4832,7 @@ serrano chili pepper
 serrano ham
 serrano pepper
 sesame marinade
+sesame oil
 sesame seed
 sesame seed bun
 sesame seed burger bun
@@ -4937,6 +4968,7 @@ sorrel
 souffle cup
 soufflé
 soup
+soup mix
 sour cream
 sour cream butter
 sour gummy
@@ -5599,6 +5631,7 @@ vanilla cream sandwich cookie
 vanilla cream soda
 vanilla cupcake
 vanilla custard
+vanilla extract
 vanilla frosting
 vanilla fudge sandwich cookie
 vanilla granulated sugar
@@ -5816,16 +5849,21 @@ white bread crouton
 white bread crumb
 white bread dough
 white bread flour
+white chocolate
 white flour
 white flour pita bread
 white flour tortilla
 white meat
 white meat chicken
 white meat tuna
+white pepper
+white rice
 white sauce
 white unbleached flour
+white wine
 whitefish
 whole inside round
+whole milk
 whole pig
 whole-gram sorghum
 whole-wheat wrap
