@@ -31,8 +31,8 @@ def plural_to_singular(ingredients):
     new_ingredients = []
     for ingredient in ingredients:
         ## Certain characters that need to get filtered out from ingredient
-        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('/', ' ').replace('.', '').replace('®', '').replace('è', 'e').replace('ñ', 'n')
         ## Handle parentheses later
+        ingredient = ingredient.strip().replace(',', '').replace('*', '').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('/', ' ').replace('.', '').replace('®', '').replace('è', 'e').replace('ñ', 'n')
         singular_phrase = []
         for word in ingredient.split(' '):
             word = word.strip()
@@ -170,6 +170,18 @@ def get_ingredients(ingredients):
 
 cleaned_recipes = []
 
+## Pulls out ingredients for each recipe
+for recipe in recipes:
+    ingredients_singular = plural_to_singular(recipe.ingredients)
+    ingredients_cleaned = get_ingredients(ingredients_singular)
+    if len(ingredients_cleaned) > 0:
+        ## Recipe object was updated since recipes first scraped, this allows new objects to be up to date
+        new_recipe = Recipe(recipe.title, recipe.time, recipe.servings, recipe.difficulty, recipe.ingredients, recipe.steps, recipe.tags)
+        new_recipe.set_ingredients_backend_side(ingredients_cleaned)
+        cleaned_recipes.append(new_recipe)
+
+## with open('cleaned_recipes.pickle', 'wb') as f:
+    ## pickle.dump(cleaned_recipes, f)
 
 ## random_sample = random.sample(range(0, len(recipes)), 200)
 ## sample_text = open('sample.txt', 'w+')

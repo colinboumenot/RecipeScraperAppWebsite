@@ -5,12 +5,12 @@ class Recipe:
         self.servings = servings
         self.difficulty = diffuculty
         self.ingredients = ingredients
-        self.ingredients_user_side = ingredients
+        self.ingredients_backend_side = ingredients
         self.steps = steps
         self.tags = tags
     
-    def set_ingredients_user_side(self, ingredients):
-        self.ingredients_user_side = ingredients
+    def set_ingredients_backend_side(self, ingredients):
+        self.ingredients_backend_side = ingredients
 
 
 

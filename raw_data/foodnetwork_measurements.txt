@@ -1,0 +1,67 @@
+fluid ounce
+fl oz
+gill 
+gi
+pint
+pt
+fl pt
+quart
+qt
+fl qt
+gallon
+gal
+teaspoon
+tsp
+tablespoon
+tbl
+tbs
+tbsp
+cup
+pound
+lb
+ounce 
+oz
+milliliter
+millilitre
+cubic centimeter
+cc
+ml
+mL
+liter
+litre
+L
+deciliter
+decilitre
+dl
+dL
+milligram 
+milligramme
+mg
+gram
+gramme
+g
+kilogram
+kilogramme
+kg
+bottle
+bunch
+bag
+container
+stalk
+stick
+can
+bulb
+pinch
+dash
+slice
+package
+sprig
+tube
+link
+jar
+piece
+ear
+slab
+sheet
+clove
+strip
