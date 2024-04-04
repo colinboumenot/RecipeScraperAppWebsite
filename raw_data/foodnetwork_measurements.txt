@@ -62,6 +62,4 @@ jar
 piece
 ear
 slab
-sheet
 clove
-strip
