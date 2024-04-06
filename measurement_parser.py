@@ -10,12 +10,12 @@ word_numbers = set(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eigh
 def plural_to_singular(ingredient):
     p = inflect.engine()
     ## Certain characters that need to get filtered out from ingredient
-    ingredient = ingredient.strip().replace(',', '').replace('- ', ' ').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('(', '').replace(')', '').replace('%', '').replace(' to ', '-').replace('½', '1/2').replace('¼', '1/4').replace('¾', '3/4')
+    ingredient = ingredient.strip().replace(',', '').replace('- ', ' ').replace('\xa0', ' ').replace(';', '').replace('"', '').replace('(', '').replace(')', '').replace('%', '').replace(' to ', '-').replace('½', ' 1/2').replace('¼', ' 1/4').replace('¾', ' 3/4').replace('*', '')
     ## Handle parentheses later
     singular_phrase = []
     for word in ingredient.split(' '):
         word = word.strip().lower()
-        if '-' in word:
+        if '-' in word and len(word) > 1:
             first, second = word.split('-')[0], word.split('-')[1]
             ## Some recipes list amounts as 1-2, 3-4, etc., we decided for this that we will take the smaller of the two numbers
             if first.isnumeric() and second.isnumeric():
@@ -30,9 +30,16 @@ def plural_to_singular(ingredient):
         if '.' in word:
             if word.endswith('.'):
                 word = word.replace('.', '')
-            else:
-                with open('raw_data/unknown_ingredients.txt', 'a+') as f:
-                    f.write('unknown' + ingredient + '\n')
+            ##else:
+                ##with open('raw_data/unknown_ingredients.txt', 'a+') as f:
+                    ##f.write('unknown' + ingredient + '\n')
+        if '/' in word:
+            if word.endswith('/'):
+                word = word.replace('/', '')
+            ## Weird edgecase when recipe author has terrible formating, wrote ingredient is 14/-inch
+            if len(word.split(' ')) > 1:
+                if word.split(' ')[0].endswith('/'):
+                    word = word.replace('/', '')
 
         if word != '' and word != 'tbs':
             singular = p.singular_noun(word)
@@ -52,6 +59,10 @@ def plural_to_singular(ingredient):
 def get_measurements(ingredient):
     matches = []
 
+    ## Handles case where ingredient specifies cutting into a certain quantity ex. 1/2 inch cube, do not want to accidently link this quantity to an ingredient
+    if 'cut into' in ingredient:
+        ingredient_split = ingredient.split('cut into')[0]
+
     ingredient_split = ingredient.split(' ')
     ## Remove extra spaces
     while '' in ingredient_split:
@@ -60,11 +71,11 @@ def get_measurements(ingredient):
     counter = 0
 
     while counter < len(ingredient_split):
-        if (ingredient_split[counter].isnumeric() or (ingredient_split[counter][0].isnumeric() and '/' in ingredient_split[counter])) and counter < len(ingredient_split) - 1:
+        if (ingredient_split[counter].isnumeric() or (ingredient_split[counter][0].isnumeric() and '/' in ingredient_split[counter] and len(ingredient_split[counter]) == 3)) and counter < len(ingredient_split) - 1:
             ingredient_amount = eval(ingredient_split[counter])
             counter += 1
             
-            if (ingredient_split[counter].isnumeric() or (ingredient_split[counter][0].isnumeric() and '/' in ingredient_split[counter])):
+            if (ingredient_split[counter].isnumeric() or (ingredient_split[counter][0].isnumeric() and '/' in ingredient_split[counter] and len(ingredient_split[counter]) == 3)):
                 if len(ingredient_split[counter]) > 2:
                     ingredient_amount += eval(ingredient_split[counter])
                     counter += 1
@@ -72,7 +83,7 @@ def get_measurements(ingredient):
                     ingredient_amount *= float(ingredient_split[counter])
                     counter += 1
 
-            if ingredient_split[counter] in measurements:
+            if counter < len(ingredient_split) and ingredient_split[counter] in measurements:
                 matches.append(str(ingredient_amount) + ' ' + ingredient_split[counter])
                 counter += 1
                 continue
@@ -82,9 +93,10 @@ def get_measurements(ingredient):
                 counter += 1
                 continue
             else:
-                matches.append(str(ingredient_amount) + ' whole')
+                ## Add whole label to ingredient if measurement type cannot be found unless previous measurement has been found Ex. 6 pounds about 2 tomatoes should just be 6 pounds tomatoes, not (6 pound tomatoes, 2 whole tomatoes)
+                if len(matches) == 0:
+                    matches.append(str(ingredient_amount) + ' whole')
         else:
             counter += 1         
 
     return matches
-

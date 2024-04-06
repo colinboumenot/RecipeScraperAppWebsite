@@ -75,7 +75,7 @@ def multiple_ingredient_error(ingredient, matches):
 def get_ingredients(ingredient):
     matches = []
     ## Optional ingredients or items with recipe follows or : indicate non-necessary items, or items that have ingredients layed out later in the recipe, as such they are not considered
-    if 'optional' in ingredient or 'recipe follow' in ingredient or ':' in ingredient:
+    if 'optional' in ingredient or 'recipe follow' in ingredient or (':' in ingredient and 'recommended:' not in ingredient):
         return []
     else:
     ## Get rid of contents inside parentheses, useful for determining units later on, but not for ingredients
