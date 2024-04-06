@@ -6,6 +6,7 @@ import random
 
 recipes = []
 
+
 with open('ScrapedRecipes/all_recipes.pickle', 'rb') as f:
     recipes.extend(pickle.load(f))
 with open('ScrapedRecipes/all_recipes_2.pickle', 'rb') as f:
