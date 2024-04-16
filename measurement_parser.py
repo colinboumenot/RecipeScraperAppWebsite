@@ -71,25 +71,27 @@ def get_measurements(ingredient):
     counter = 0
 
     while counter < len(ingredient_split):
-        if (ingredient_split[counter].isnumeric() or (ingredient_split[counter][0].isnumeric() and '/' in ingredient_split[counter] and len(ingredient_split[counter]) == 3)) and counter < len(ingredient_split) - 1:
-            ingredient_amount = eval(ingredient_split[counter])
+        current_ingredient = ingredient_split[counter]
+        if (current_ingredient.isnumeric() or (current_ingredient[0].isnumeric() and '/' in current_ingredient and len(current_ingredient) == 3)) and counter < len(ingredient_split) - 1:
+            ingredient_amount = eval(current_ingredient)
             counter += 1
             
-            if (ingredient_split[counter].isnumeric() or (ingredient_split[counter][0].isnumeric() and '/' in ingredient_split[counter] and len(ingredient_split[counter]) == 3)):
-                if len(ingredient_split[counter]) > 2:
-                    ingredient_amount += eval(ingredient_split[counter])
+            if (current_ingredient.isnumeric() or (current_ingredient[0].isnumeric() and '/' in current_ingredient and len(current_ingredient) == 3)):
+                if len(current_ingredient) > 2:
+                    ingredient_amount += eval(current_ingredient)
                     counter += 1
                 else:
-                    ingredient_amount *= float(ingredient_split[counter])
+                    ingredient_amount *= float(current_ingredient)
                     counter += 1
 
-            if counter < len(ingredient_split) and ingredient_split[counter] in measurements:
-                matches.append(str(ingredient_amount) + ' ' + ingredient_split[counter])
+            if counter < len(ingredient_split) and current_ingredient in measurements:
+                matches.append(str(ingredient_amount) + ' ' + current_ingredient)
                 counter += 1
                 continue
             elif counter + 1 < len(ingredient_split) and ingredient_split[counter + 1] in measurements:
                 counter += 1
-                matches.append(str(ingredient_amount) + ' ' + ingredient_split[counter])
+                current_ingredient = ingredient_split[counter]
+                matches.append(str(ingredient_amount) + ' ' + current_ingredient)
                 counter += 1
                 continue
             else:
