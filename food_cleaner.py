@@ -96,4 +96,4 @@ def get_unit_and_quantity(self, ingredient: str):
     if quantity is not None:
         quantity = int(quantity) * multiplier
     return (unit, quantity)
-clean_umbrella_foods('cider_apples.txt')
+clean_umbrella_foods('watermelon.txt')
