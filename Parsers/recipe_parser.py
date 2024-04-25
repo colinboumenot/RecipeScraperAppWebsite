@@ -1,5 +1,5 @@
 import measurement_parser
-import Parsers.ingredient_parser as ingredient_parser
+import ingredient_parser as ingredient_parser
 from recipe import Recipe
 import pickle
 import random
@@ -41,14 +41,18 @@ def clean_ingredients(ingredients):
                     for x in range(len(measurements)):
                         cleaned_ingredients.append(measurements[x] + '@' + foods[x])
                 elif len(measurements) > len(foods):
-                    if len(foods) == 1:
+                    ## Occurs with case such as 1 ounce (16 g) of salt, for this we want the more precise measurement, which is generally the 2nd
+                    if len(foods) == 1 and 'plus' not in ingredient.split(' '):
+                        cleaned_ingredients.append(measurements[1] + '@' + foods[0])
+                    ## Occurs with case such as 1 ounce salt plus 1 teaspoon for sprinkling
+                    elif len(foods) == 1 and 'plus' in ingredient.split(' '):
                         for measurement in measurements:
                             cleaned_ingredients.append(measurement + '@' + foods[0])
                     else:
                         ## Generally means that several ingredient options were listed with only one being required, for simplicity we just take the first one
                         if 'or' in ingredient.split(' '):
                             cleaned_ingredients.append(measurements[0] + '@' + foods[0])
-                        ## Very rare case (occured 5 times in 1000 recipes tested), generally occurs when several options for ingredient listed Ex. 1/2 stick or 4 ounces of butter rare enough error that it is not a large time sink to manually fix
+                        ## Very rare case (occured 5 times in 1000 recipes tested), generally occurs when several options for ingredient listed Ex. 1/2 stick or 4 ounces of butter rare enough edgecase that the quantity can just be ignored
                         else:
                             for food in foods:
                                 cleaned_ingredients.append(food)
@@ -59,9 +63,6 @@ def clean_ingredients(ingredients):
                     elif len(measurements) == 0:
                         for food in foods:
                             cleaned_ingredients.append(food)
-                            ## The majority of the time this is not a problem, usually occurs if ingredient is very simple, such as salt or pepper
-                            ## with open('raw_data/unknown_ingredients.txt', 'a+') as f:
-                                ## f.write('more foods ' + ingredient + '\n')
                     else:
                         if 'or' in ingredient.split(' '):
                             cleaned_ingredients.append(measurements[0] + '@' + foods[0])
@@ -71,12 +72,9 @@ def clean_ingredients(ingredients):
                                 cleaned_ingredients.append(food)
         return cleaned_ingredients
 
-x = -1
 ## Going through each recipe, if it has ingredients it is added to the pickle file for later
 cleaned_recipes = []
 for recipe in recipes:
-    x += 1
-    print(x)
     clean_recipe = clean_ingredients(recipe.ingredients)
 
     if clean_recipe is not None:
@@ -86,10 +84,3 @@ for recipe in recipes:
 
 with open('cleaned_recipes.pickle', 'wb') as f:
     pickle.dump(cleaned_recipes, f)
-
-## sample = random.sample(recipes, 200)
-
-## for x in sample:
-    ## recipe = x
-    ## with open('recipe_sample.txt', 'a+') as f:
-        ## f.write('old ' + " ".join(recipe.ingredients) + '\n\n' + 'new ' + " ".join(clean_ingredients(recipe.ingredients)) + '\n')
