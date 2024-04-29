@@ -15,11 +15,11 @@ with open('ScrapedRecipes/all_recipes_3.pickle', 'rb') as f:
     recipes.extend(pickle.load(f))
 
 temp_recipes = recipes
-recipes = []
+recipes = set()
 
 for item in temp_recipes:
     if item is not None:
-        recipes.append(item)
+        recipes.add(item)
 
 ## Foods are first pulled out, then measurements are pulled out, the two lists are compared to each other and depending on the difference in lengths a certain procedure is followed to add the itemized ingredient to the final list
 def clean_ingredients(ingredients):
@@ -57,9 +57,9 @@ def clean_ingredients(ingredients):
                             for food in foods:
                                 cleaned_ingredients.append(food)
                 elif len(foods) > len(measurements):
+                    ## Situation such as '1 slice of bread with butter' most of the time only the first ingredient and food matter
                     if len(measurements) == 1:
-                        for food in foods:
-                            cleaned_ingredients.append(measurements[0] + '@' +  food)
+                        cleaned_ingredients.append(measurements[0] + '@' +  foods[0])
                     elif len(measurements) == 0:
                         for food in foods:
                             cleaned_ingredients.append(food)

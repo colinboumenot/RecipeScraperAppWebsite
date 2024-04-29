@@ -51,12 +51,10 @@ stalk
 stick
 can
 bulb
-slice
 package
 sprig
 tube
 link
 jar
-ear
-slab
 clove
+slice
