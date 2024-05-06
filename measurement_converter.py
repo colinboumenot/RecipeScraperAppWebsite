@@ -45,6 +45,18 @@ def units_to_ounce(quantity, unit):
     elif unit == 'teaspoon':
         quantity /= 48
         return quantity, 'cup'
+    elif unit == 'can':
+        quantity *= 2.5, 'cup'
+    elif unit == 'bag':
+        quantity *= 4, 'cup'
+    elif unit == 'jar':
+        quantity *= 2, 'cup'
+    elif unit == 'bottle':
+        quantity *= 3.17, 'cup'
+    elif unit == 'container':
+        quantity *= 2, 'cup'
+    elif unit == 'tube':
+        quantity *= 0.56
     else:
         ## Should not occur, check unit for error
         print(unit)

@@ -1,0 +1,25 @@
+Data:
+    Ingredients have all been processed and cleaned
+    Units of measurement have been set and standardized
+    
+    TODO: 
+        create standard values for measurment of jars/cans/bags/etc
+        finish umbrella terms
+
+Sorting:
+    Database is mostly set up and only need to add rows for ingredients/measurements and the rest of the data
+
+    TODO:
+        figure out how sorting will work with the umbrella terms
+        make it so that more people are able to edit the databse than just Sofiya
+
+        create a backup sorting system in the event that the database doesn't work
+            dictionary of all ingredients with the value being all of the recipies with that ingredient -> get couple ingredient/sets and get intersection to find recipies 
+            drawback: ingredients have to be added manually -> just give recipes w/o worring about measurements
+
+UI:
+    homepage is done and working
+    plans are set for what the filter search and recipe search pages look like
+        
+    TODO:
+        Add extra visual elements (quantity) to filter search page and finish recipe search page
