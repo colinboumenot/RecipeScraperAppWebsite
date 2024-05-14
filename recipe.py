@@ -8,9 +8,13 @@ class Recipe:
         self.ingredients_backend_side = ingredients
         self.steps = steps
         self.tags = tags
+        self.id = None
     
     def set_ingredients_backend_side(self, ingredients):
         self.ingredients_backend_side = ingredients
+    
+    def set_id(self):
+        self.id = id(self)
 
 
 

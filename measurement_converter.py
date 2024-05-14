@@ -46,17 +46,23 @@ def units_to_ounce(quantity, unit):
         quantity /= 48
         return quantity, 'cup'
     elif unit == 'can':
-        quantity *= 2.5, 'cup'
+        quantity *= 2.5
+        return quantity, 'cup'
     elif unit == 'bag':
-        quantity *= 4, 'cup'
+        quantity *= 4
+        return quantity, 'cup'
     elif unit == 'jar':
-        quantity *= 2, 'cup'
+        quantity *= 2
+        return quantity, 'cup'
     elif unit == 'bottle':
-        quantity *= 3.17, 'cup'
+        quantity *= 3.17
+        return quantity, 'cup'
     elif unit == 'container':
-        quantity *= 2, 'cup'
+        quantity *= 2
+        return quantity, 'cup'
     elif unit == 'tube':
         quantity *= 0.56
+        return quantity, 'cup'
     else:
         ## Should not occur, check unit for error
         print(unit)
@@ -85,7 +91,7 @@ for key in abbreviation_conversion:
 
 counter = defaultdict(int)
 ## Units that we can convert, excludes cups and grams, since they are the base conversion
-quantified_units = {'gill', 'ounce', 'kilogram', 'gallon', 'liter', 'milliliter', 'quart', 'teaspoon', 'pint', 'tablespoon', 'pound'}
+quantified_units = {'gill', 'ounce', 'kilogram', 'gallon', 'liter', 'milliliter', 'quart', 'teaspoon', 'pint', 'tablespoon', 'pound', 'can', 'bag', 'jar', 'bottle', 'container', 'tube'}
 cleaned_recipes = []
 slices = set()
 
