@@ -9,20 +9,6 @@ with open('raw_data/pickle_files/ingredient_to_recipes_dict.pickle', 'rb') as f:
 with open('raw_data/pickle_files/recipe_toingredients_toquantities.pickle', 'rb') as f:
     recipes_to_quantities = pickle.load(f)
 
-user_ingredients = dict()
-
-for ingredient in ingredient_to_recipes:
-    user_ingredients[ingredient] = [0, 0, 0, 0]
-
-user_ingredients['salt'][0] = 99999
-user_ingredients['corn'][3] = 4
-user_ingredients['thyme'][3] = 8
-user_ingredients['onion'][3] = 1
-user_ingredients['garlic'][3] = 4
-user_ingredients['bay leaf'][3] = 3
-## user_ingredients['black peppercorn'][1] = 1
-user_ingredients['olive oil'][0] = 1
-
 def check_recipe_validity(recipe):
     for key in recipes_to_quantities[recipe.id]:
         totals = recipes_to_quantities[recipe.id][key]
