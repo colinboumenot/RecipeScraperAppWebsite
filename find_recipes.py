@@ -35,13 +35,28 @@ def check_recipe_validity_exclusive(recipe, ingredients):
                 return False
     return True
 
-## Provide user with list of recipes using all selected ingredients
+def check_recipe_validity_no_quantity(recipe):
+    for key in recipes_to_quantities[recipe.id]:
+        if user_ingredients[key] == [0, 0, 0, 0]:
+            return False
+    return True
+
+## Provide user with list of recipes using all selected ingredients, checking all ingredients in recipe
 def find_recipes_no_quantities(ingredients):
+    intial_recipes = set.intersection(*(ingredient_to_recipes[x] for x in ingredients))
+    final_recipes = set()
+    for recipe in intial_recipes:
+        if check_recipe_validity_no_quantity:
+            final_recipes.add(recipe)
+    return final_recipes
+
+## Provide user with list of recipes using all selected ingredients, checking only entered ingredients
+def find_recipes_no_quantities_exclusive(ingredients):
     return set.intersection(*(ingredient_to_recipes[x] for x in ingredients))
 
 ## Provide user with list of recipes using selected ingredients taking into account quantities, checks if you have enough of ALL ingredients in recipe
 def find_recipes_quantities(ingredients):
-    initial_set = find_recipes_no_quantities(ingredients)
+    initial_set = find_recipes_no_quantities_exclusive(ingredients)
     final_set = set()
     for recipe in initial_set:
         if check_recipe_validity(recipe):
@@ -50,7 +65,7 @@ def find_recipes_quantities(ingredients):
 
 ## Similar to find_recipes_quantities, however this function only considers if you have enough of your preselected ingredients for the recipe
 def find_recipes_quantities_exclusive(ingredients):
-    initial_set = find_recipes_no_quantities(ingredients)
+    initial_set = find_recipes_no_quantities_exclusive(ingredients)
     final_set = set()
     for recipe in initial_set:
         if check_recipe_validity_exclusive(recipe, ingredients):

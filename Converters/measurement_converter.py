@@ -10,7 +10,7 @@ with open('cleaned_recipe_objects.pickle', 'rb') as f:
 
 ## Converting all volume measurements to cups, and all mass measurements to grams since recipes are from American site, we assume that ounces in a recipe refers to mass
 
-def units_to_ounce(quantity, unit):
+def units_to_master_measurement(quantity, unit):
     quantity = float(quantity)
     if unit == 'pound':
         quantity *= 453.6
@@ -110,11 +110,11 @@ for recipe in recipes:
                     unit, ingredient = ingredient.split('@')
                     quantity, unit = unit.split(' ')
                     if unit in quantified_units:
-                        quantity, unit = units_to_ounce(quantity, unit)
+                        quantity, unit = units_to_master_measurement(quantity, unit)
                     new_ingredients.append(str(quantity) + ' ' + unit + '@' + ingredient)
             else:       
                 if unit in quantified_units:
-                    quantity, unit = units_to_ounce(quantity, unit)
+                    quantity, unit = units_to_master_measurement(quantity, unit)
                 ## Creating dictionary for all units of measurement associated with an ingredient, will be used later when users input ingredients
                 food_measurements[ingredient].add(unit)
                 new_ingredients.append(str(quantity) + ' ' + unit + '@' + ingredient)
