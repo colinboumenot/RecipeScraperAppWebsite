@@ -7,6 +7,7 @@ Data:
         simplify backend functions:
             add option for quantityless (infinite) ingredient (such as salt)
             make search function based off on ingredients
+            make sure given ingredients are ingredients found in recipes/real
         connect font + backend functions
     Cut:
         umbrealla terms
@@ -27,7 +28,10 @@ UI:
     plans are set for what the filter search and recipe search pages look like
         
     TODO:
-        Add units to ingredient addition page - Sindhura needs to finalize PR
+        Finish ingredient addition page:
+            add units - Sindhura needs to finish PR with quantities
+            use backend (in progress) function to see if given ingredient is real, if it's not, inform the user and remove the ingredient
+            make adding quantity/unit optional
         Finish recipe search page:
             let user choose if they want to search inclusive or exclusive of quantity
             create bubble checkbox for all ingredients added on ingredient addition page so 
