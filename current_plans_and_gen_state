@@ -3,8 +3,13 @@ Data:
     Units of measurement have been set and standardized
     
     TODO: 
-        create standard values for measurment of jars/cans/bags/etc
-        finish umbrella terms
+        create function to save user data (ingredients) to file
+        simplify backend functions:
+            add option for quantityless (infinite) ingredient (such as salt)
+            make search function based off on ingredients
+        connect font + backend functions
+    Cut:
+        umbrealla terms
 
 Sorting:
     Database is mostly set up and only need to add rows for ingredients/measurements and the rest of the data
@@ -22,4 +27,13 @@ UI:
     plans are set for what the filter search and recipe search pages look like
         
     TODO:
-        Add extra visual elements (quantity) to filter search page and finish recipe search page
+        Add units to ingredient addition page - Sindhura needs to finalize PR
+        Finish recipe search page:
+            let user choose if they want to search inclusive or exclusive of quantity
+            create bubble checkbox for all ingredients added on ingredient addition page so 
+                user can ask for recipe that only has ingredients that they want to use at 
+                the moment
+        create reuslts page (probably scrolling) to show recipes found after filtering through all recipes
+            also create error page if no results are found (too specific filers/ingredients/spelling error)
+    create page to display specific recipe (title, difficulty, ingredients, steps, time)
+
