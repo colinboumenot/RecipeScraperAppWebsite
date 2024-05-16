@@ -29,5 +29,5 @@ def update_ingredients_quantity(ingredient, quantity, unit):
         user_ingredients[ingredient][3] += quantity
 
 ## If user chooses no quantity, we assume they have an infinite amount of the ingredient
-def update_ingredients_quantity(ingredient):
+def update_ingredients_no_quantity(ingredient):
     user_ingredients[quantity] = [99999, 99999, 99999, 99999]
