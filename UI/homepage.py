@@ -37,6 +37,33 @@ input_box = search_results = back_button = filter_title = recipe_title = items_t
 item_list = []
 delete_buttons = []
 
+#write information item_list to file
+def save_user_data():
+    user_ingredients = open('user_ingredients.txt', "w")
+    user_ingredients.truncate(0)
+    for ingredient in item_list:
+        user_ingredients.write(ingredient + "\n") #once units and quantities are added change to write(ingredient + "%" + quantity + "%" + unit + "\n")
+    user_ingredients.close()
+
+#check to see if user_ingredients.txt is empty, and if not add to item_list upon opening the app
+def check_saved_data():
+    user_ingredients = []
+    try:
+        user_ingredients = open('user_ingredients.txt', "x").readlines()
+    except:
+        print("file already exists")
+        user_ingredients = open('user_ingredients.txt', "r").readlines()
+
+    if user_ingredients is not None:
+        for ingredient in user_ingredients:
+            food_amount_unit = ingredient.split('%')
+            if food_amount_unit[0] not in item_list:
+                item_list.append(food_amount_unit[0].strip("\n"))
+    pass
+
+check_saved_data()
+save_user_data()
+
 # Handling screens and transitions
 def draw_filter_search_screen():
     global input_box, search_results, back_button, filter_title, items_text_box, current_screen, delete_buttons
@@ -89,6 +116,7 @@ def delete_item(button):
     global item_list
     if button.item_index < len(item_list):
         item_list.pop(button.item_index)
+        save_user_data()
         update_items_display()
 
 def handle_ui_events(event):
@@ -100,7 +128,8 @@ def handle_ui_events(event):
             if event.ui_element == button_filter:
                 draw_filter_search_screen()
             elif event.ui_element == button_recipe:
-                draw_recipe_search_screen()
+                #draw_recipe_search_screen()
+                pass
             elif back_button and event.ui_element == back_button:
                 title.show()
                 button_filter.show()
@@ -121,6 +150,7 @@ def handle_ui_events(event):
     elif event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN and current_screen == 'filter_search' and input_box.get_text():
             item_list.append(input_box.get_text())
+            save_user_data()
             update_items_display()
             input_box.set_text('')
 
