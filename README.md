@@ -39,7 +39,7 @@ The goal of our project is to create an application, where you can enter and sav
 
 To run the app first download the following libraries.
 
--	PyAutoGUI - `pip install pygame_gui`
+-	PyGame GUI - `pip install pygame_gui`
   
 -	PyGame – `pip install pygame`
 
