@@ -59,10 +59,38 @@ def check_saved_data():
             food_amount_unit = ingredient.split('%')
             if food_amount_unit[0] not in item_list:
                 item_list.append(food_amount_unit[0].strip("\n"))
-    pass
 
 check_saved_data()
 save_user_data()
+
+#initalize empty dictionary with all ingredients
+def create_ingredient_dict():
+    ingredient_dict = dict()
+    ingredients = open('raw_data\\foodnetwork_ingredients.txt').readlines() #may cause issues if user has mac, will test later
+    for food in ingredients:
+        food = food[0:len(food) - 1] #removes the \n seen at the end of foods
+        ingredient_dict[food] = [0, 0, 0, 0]
+    return ingredient_dict
+
+ingredient_dict = create_ingredient_dict()
+
+def update_ingredient_dict():
+    user_ingredients = open('user_ingredients.txt', "r").readlines()
+    for ingredient in user_ingredients:
+        ingredient = ingredient.split("%")
+        food = ingredient[0]
+        amount = ingredient[1]
+        unit = ingredient[2]
+        if unit == "grams": 
+            ingredient_dict[food][0] = amount
+        elif unit == "cups":
+            ingredient_dict[food][1] = amount
+        elif unit == "packages":
+            ingredient_dict[food][2] = amount
+        elif unit == "wholes":
+            ingredient_dict[food][3] = amount
+        else: #for foods without a amount that needs to be specified, like salt
+            ingredient_dict[food] = [9999, 9999, 9999, 9999]
 
 # Handling screens and transitions
 def draw_filter_search_screen():
@@ -150,6 +178,8 @@ def handle_ui_events(event):
     elif event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN and current_screen == 'filter_search' and input_box.get_text():
             item_list.append(input_box.get_text())
+            #TODO: once units and quantites are also sent in, call unit conversion method
+            #update_ingredient_dict() -> uncomment once units are finalized
             save_user_data()
             update_items_display()
             input_box.set_text('')
