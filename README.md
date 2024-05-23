@@ -39,7 +39,7 @@ The goal of our project is to create an application, where you can enter and sav
 
 To run the app first download the following libraries.
 
--	PyAutoGUI - `pip install pyautogui`
+-	PyAutoGUI - `pip install pygame_gui`
   
 -	PyGame – `pip install pygame`
 
@@ -49,29 +49,54 @@ To run the app first download the following libraries.
 
 ### **Scrapers:**
 
-- **'url_scraper.py':** The intital pass through foodnetwork.com, this scraper retrieves all urls for the recipes, these urls are then passed along to the next scraper to get further processed.
+- **url_scraper.py**: The intital pass through foodnetwork.com, this scraper retrieves all urls for the recipes, these urls are then passed along to the next scraper to get further processed.
   
-- **'recipe_scraper.py':** This scraper takes the urls previously scraped and goes through each url to find the title, time, servings, level, ingredients, steps, and tags for each recipe, this data is then used to create a Recipe object, once all recipes are scraped they are dumped into a file for user later.
+- **recipe_scraper.py:** This scraper takes the urls previously scraped and goes through each url to find the title, time, servings, level, ingredients, steps, and tags for each recipe, this data is then used to create a Recipe object, once all recipes are scraped they are dumped into a file for user later.
 
 ### **Parsers:**
 
 &nbsp;&nbsp;&nbsp;&nbsp;Parsers serve as the second pass through the data, all parsers first unpluralize the strings of the recipe objects in order to ensure continuity between the same ingredients (Ex. strawberry and strawberries should be the same thing).
 
-- **'ingredient_parser.py':** The first parser, it runs through the ingredients of the previously stored recipe objects to find keywords matching our created list of possible ingredients, returns a list of ingredients sorted by first appearance in the string.
+- **ingredient_parser.py:** The first parser, it runs through the ingredients of the previously stored recipe objects to find keywords matching our created list of possible ingredients, returns a list of ingredients sorted by first appearance in the string.
   
-- **'measurement_parser.py':** The second parsers, it runs through the ingredients of the recipe searching for units in the recipe, it only returns a found unit if it finds an accompanied quantity, when returning data it sends back a list of the unit quantity pairs in order of appearance.
+- **measurement_parser.py:** The second parsers, it runs through the ingredients of the recipe searching for units in the recipe, it only returns a found unit if it finds an accompanied quantity, when returning data it sends back a list of the unit quantity pairs in order of appearance.
 
-- **'object_parser.py':** The final parser, serves as a way to combine the data from the previous two parsers, for each recipe it runs ingredient and measurement parser, depending on what is returned it creates pairs of ingredients and measurements that are then added back to the Recipe objects as an additional field, the resulting recipes are then stored in a file for later use with the converters.
+- **object_parser.py:** The final parser, serves as a way to combine the data from the previous two parsers, for each recipe it runs ingredient and measurement parser, depending on what is returned it creates pairs of ingredients and measurements that are then added back to the Recipe objects as an additional field, the resulting recipes are then stored in a file for later use with the converters.
 
 ### **Converters:**
 &nbsp;&nbsp;&nbsp;&nbsp;Converters serve as the final process of cleaning the data, these converters standardize units and create dictionaries to allow us to quickly provide recipes to users depending on their ingredients
 
-- **'id_converter.py':** Assigns each recipe a unique ID number, this ID later serves as the key to the dictionary of recipes, unique ID is needed since many recipes have duplicate names
+- **id_converter.py:** Assigns each recipe a unique ID number, this ID later serves as the key to the dictionary of recipes, unique ID is needed since many recipes have duplicate names.
 
+- **measurement_converter.py:** Standardizes measurements, for volume ingredients measurements are converted to cups, for mass ingredients measurements are converted to grams. For simplicity ambiguous units such as tubes, cans, bottles, etc. were assumed to be a certain amount based on research.
+
+- **recipe_dictionary_converter.py:** Every recipe is added as values to a dictionary with ingredients as the keys, makes it easier later on to find recipes based on users ingredients.
+
+- **recipeobject_dictionary_converter.py:** Turns each recipe object into a dictionary, for each recipe the key is one of the ingredients and the value is a empty list of [0, 0, 0, 0] the first item represents how many grams of the ingredient, the second item the amount of cups, the third the amount of packages, and the last the amount of wholes.
+
+- **input_converter.py:** Takes user input of ingredients and splits each entry into a quantity unit and ingredients, allows for dictionaries to be parsed for recipes.
 
 ### **Recipe Finder:**
+&nbsp;&nbsp;&nbsp;&nbsp;For finding recipes the user has 4 options
+
+1. Recipes no quantities
+   - For this option the user provides a list of ingredients they want to use, and recipe that contains all these ingredients is initially selected, each of these recipes are then checked to see if the user has all ingredients required for the recipe
+    
+2. Recipes no quantities exclusive
+   - Similar to recipes no quantities, with user provided list of ingredients all recipes containing all the ingredients are returned, we do not check to see if the user has enough of the non pre-selected ingredients in the recipe, useful if user wants to use up certain ingredients
+
+3. Recipes quantities
+   - Same functionality as recipes no quantities, except each ingredient is also checked to see if the user has enough of the ingredient
+
+4. Recipes quantities exclusive
+   - Same functionality as recipes no quantities exclusive, except quantities are taken into account
 
 ### **UI:**
+
+### **Diagram:**
+
+![image000000 (01E)](https://github.com/SofiyaChubich/RecipeScraperAppWebsite/assets/90056323/a773320f-6227-4c23-9ae1-63d532555993)
+
 ## **User Experience**
 
 ## **Retrospective**
