@@ -99,4 +99,35 @@ To run the app first download the following libraries.
 
 ## **User Experience**
 
+&nbsp;&nbsp;&nbsp;&nbsp;Overall, this app is meant to be a useful tool for home cooks looking for recipe ideas, the use of the app is meant to be as straightforward as possible.
+
+### **First Time User:** 
+
+&nbsp;&nbsp;&nbsp;&nbsp;The app intially loads onto a screen providing a user the option to search for recipes or enter ingredients into their database. For a first time user they will liekly need to add ingredients to their database (unless they want a recipe with 0 ingredients), to add ingredients users are then instructed to give an ingredient name, and if they choose a unit with a quantity (ex. 2 tablespoons). After entering their ingredients users then can return to the homescreen and move to the tab allowing them to search for recipes, to search for recipes they provide at least 1 ingredient that they want to be used in the recipe, they then select which of the 4 recipe finder functionalities they want to use. After doing so they are provided with a list of recipes which they can click on to see the full step by step instructions.
+
+&nbsp;&nbsp;&nbsp;&nbsp;By taking a smaller step by step approach to the process of finding recipes, it makes it easy for new users to get a feel of how the application works.
+
+### **Returning User:** 
+
+&nbsp;&nbsp;&nbsp;&nbsp;As with the first time user the app intially loads to the homescreen, however for the returning user the app loads the database of ingredients that they previously provided. So the returning user could immediately begin searching for recipes, which has the same flow previously described for beginning users. Returning users may also need to enter updates to their ingredient database, for adding ingredients recently purchased, or for subtracting ingredients that may have expired. 
+
 ## **Retrospective**
+
+### **Sindhura:**
+
+### **Nikil:**
+
+### **Camila:**
+
+### **Sofiya:**
+
+### **Colin:**
+
+**Summary:** Overall I thought that the project went fairly well, we did a good job of establishing what tasks each person was going to be doing intially, however after this is became clear that certain tasks were going to take far longer than expected (cleaning the data, creating UI), and I think it may have been better if at this point we stopped to reevaluate what tasks needed to be prioritized in order to ensure the project would finish on time.
+
+**Communication:** For the most part our communication in class as a group was fairly good, with our daily standups we were able to stay up to date on what everyone was doing. Additionally our code reviews for each other were very strong, each of our pull requests was fully evaluated by a member of the group to ensure the best quality, rather than just quickly passing it along, personally I think this allowed me to grow as a coder, by being forced to think in a bigger picture sense with small commits.
+
+**Suprises:** The main thing that suprised me was how hard it was to clean the data. Initially I assumed that I would quickly be able to scrape the data and parse for ingredients, but after seeing how diverse the formats of recipes were, I realized that the process was going to be far more complicated than that. This setback forced me to find a different way to comb through the data, leading me to use the Scrape - Parse - Convert format that I did.
+
+**Takeaways:** After completing this project one of the main takeaways I had was the degree of difficulty that goes into creating a large project that you do not have a framework for. For all other projects I have done I had some idea how to complete the task, whether it be from past experience or examples that I had seen. For this project none of that applied, it forced me to think more about each small detail, and how it would connect to the overarching framework. The other main takeaway I had was learning more about the functionality of github, I had never before used branches or pull requests, but this project allowed me to see how they work, and the value in them, and over time it became more ingrained in my coding practices, allowing me to become a more effective programmer.
+
