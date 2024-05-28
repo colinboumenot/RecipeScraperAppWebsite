@@ -1,1 +1,4 @@
 __pycache__/
+
+#file is user-specific so doesn't need to be checked-in
+user_ingredients.txt

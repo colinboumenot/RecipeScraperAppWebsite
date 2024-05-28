@@ -994,7 +994,6 @@ cheddar cheese soup
 cheddar cheese sour cream
 cheddar cracker
 cheddar crouton
-cheddar guacamole sour cream pico de gallo
 cheddar jack
 cheddar jack cheese
 cheddar monterey jack
@@ -1305,7 +1304,6 @@ chocolate rice cereal
 chocolate sandwich
 chocolate sandwich cookie
 chocolate sandwich cookie crumb
-chocolate sandwich wafer cookie
 chocolate sauce
 chocolate shell
 chocolate shell ice cream
@@ -1403,7 +1401,6 @@ cinnamon wafer cookie
 cinnamon whiskey
 cinnamon-sugar
 cinnamon-sugar pita chip
-cinnamon-sugar pita chip graham cracker
 cipollini
 cipollini onion
 citric acid
@@ -1817,7 +1814,6 @@ dasima
 dasima anchovy
 dasima kombu
 date
-date fig raisin currant chocolate chip
 date paste
 date syrup
 dekuyper peachtree
@@ -1894,7 +1890,6 @@ duck breast
 duck breast fillet
 duck broth
 duck confit
-duck confit ham bacon
 duck consomme
 duck demi-glace
 duck egg yolk
@@ -2178,7 +2173,6 @@ frozen shredded hashbrown
 frozen tater tots
 frozen unsweetened acai smoothie
 fruit candy
-fruit candy whipped topping chocolate
 fruit salad
 fruitcake
 fudge
@@ -3635,7 +3629,6 @@ onion soup dip
 onion tomato
 onion-flavored ring
 ono
-open-faced sandwich
 orange
 orange beef
 orange beefsteak tomato
@@ -4373,7 +4366,6 @@ radicchio
 radicchio lettuce
 radish
 radish chive
-radish cucumber cherry tomato
 radish green
 radish kimchi
 radish lime
@@ -4516,7 +4508,6 @@ rice cake
 rice candy
 rice cereal
 rice cereal crumb
-rice corn tortilla habanero pepper
 rice cracker
 rice flour
 rice grain
@@ -4591,7 +4582,6 @@ roll gnocchi
 roll sausage
 roll sugar cookie dough
 romaine
-romaine arugula watercress radicchio
 romaine heart
 romaine heart lettuce
 romaine lettuce
@@ -4607,7 +4597,6 @@ root
 root beer
 root ginger
 root vegetable
-root vegetable carrot beet turnip
 root vegetable chip
 root vegetable salad
 root yam
@@ -4888,7 +4877,6 @@ shrimp chip
 shrimp meat
 shrimp pasta
 shrimp paste
-shrimp salt cayenne pepper
 shrimp sauce
 shrimp scampi
 shrimp shell
@@ -5170,7 +5158,6 @@ suet
 sugar
 sugar barbecue sauce
 sugar beet
-sugar chocolate fudge brownie
 sugar cookie
 sugar cookie dough
 sugar dough
@@ -5402,7 +5389,6 @@ thin soy sauce
 thousand island dressing
 thyme
 thyme bay
-thyme bay leaf black peppercorn
 thyme butter
 thyme chive chervil
 thyme flower
@@ -5487,7 +5473,6 @@ tortellini
 tortilla
 tortilla chip
 tortilla chip pita
-tortilla chip sour cream cilantro
 tortilla shell
 tostada
 tostada shell
@@ -5538,7 +5523,6 @@ tuna fish
 tuna loin
 tuna macaroni salad
 tuna salad
-tuna salmon yellowtail snapper
 tuna steak
 tuna tenderloin
 tuna white meat
@@ -5911,5 +5895,4 @@ zucchini flower
 zucchini green
 zucchini noodle
 zucchini pickle
-zucchini spinach pepper iceberg lettuce
 zucchini squash
