@@ -1,5 +1,7 @@
+import platform
 import pygame
 import pygame_gui
+from check_ingredient_validity import check_edit_distance, check_ingredient
 
 # Initialize PyGame
 pygame.init()
@@ -129,7 +131,12 @@ save_user_data()
 #initalize empty dictionary with all ingredients
 def create_ingredient_dict():
     ingredient_dict = dict()
-    ingredients = open('raw_data\\foodnetwork_ingredients.txt').readlines() #may cause issues if user has mac, will test later
+    system = platform.system()
+    ingredients = []
+    if system == "Windows":
+        ingredients = open('raw_data\\foodnetwork_ingredients.txt').readlines()
+    else:
+        ingredients = open('raw_data/foodnetwork_ingredients.txt').readlines()
     for food in ingredients:
         food = food[0:len(food) - 1] #removes the \n seen at the end of foods
         ingredient_dict[food] = [0, 0, 0, 0]
@@ -342,7 +349,12 @@ def handle_ui_events(event):
                 event.ui_element.set_text('')
     elif event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN and current_screen == 'filter_search' and input_box.get_text():
-            item_list.append(input_box.get_text())
+            inputted_ingredient = input_box.get_text()
+            if not check_ingredient(inputted_ingredient):
+                actual_ingredient = check_edit_distance(inputted_ingredient)
+                #TODO: create a pop-up to ask user if actual ingredient is what they actually want
+                #      if it is then update inputted_ingredeint with actual_ingredient
+            item_list.append(inputted_ingredient)
             #TODO: once units and quantites are also sent in, call unit conversion method
             #update_ingredient_dict() -> uncomment once units are finalized
             save_user_data()
