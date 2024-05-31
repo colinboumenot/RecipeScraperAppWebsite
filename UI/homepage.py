@@ -1,7 +1,7 @@
 import platform
 import pygame
 import pygame_gui
-from check_ingredient_validity import check_edit_distance, check_ingredient
+from check_ingredient_validity import get_nearest_food, check_ingredient
 
 # Initialize PyGame
 pygame.init()
@@ -351,7 +351,7 @@ def handle_ui_events(event):
         if event.key == pygame.K_RETURN and current_screen == 'filter_search' and input_box.get_text():
             inputted_ingredient = input_box.get_text()
             if not check_ingredient(inputted_ingredient):
-                actual_ingredient = check_edit_distance(inputted_ingredient)
+                actual_ingredient = get_nearest_food(inputted_ingredient)
                 #TODO: create a pop-up to ask user if actual ingredient is what they actually want
                 #      if it is then update inputted_ingredeint with actual_ingredient
             item_list.append(inputted_ingredient)
