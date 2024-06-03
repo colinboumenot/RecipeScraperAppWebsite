@@ -1,7 +1,7 @@
 import platform
 import pygame
 import pygame_gui
-from check_ingredient_validity import get_nearest_food, check_ingredient
+#from check_ingredient_validity import get_nearest_food, check_ingredient
 
 # Initialize PyGame
 pygame.init()
@@ -233,6 +233,7 @@ def draw_recipe_search_screen():
 def update_items_display():
     global delete_buttons, plus_button, minus_button, value_label, value
     formatted_text = ''
+    #TODO: this is currently a bug since quantity isn't stored so it crashes the app if someone tries to add an ingredient
     for item, quantity in item_list:
         formatted_text += f'{item} - {quantity}<br>'
     items_text_box.html_text = formatted_text
@@ -297,7 +298,6 @@ def handle_ui_events(event):
                 draw_filter_search_screen()
             elif event.ui_element == button_recipe:
                 draw_recipe_search_screen()
-                pass
             elif back_button and event.ui_element == back_button:
                 title.show()
                 button_filter.show()
@@ -350,8 +350,8 @@ def handle_ui_events(event):
     elif event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN and current_screen == 'filter_search' and input_box.get_text():
             inputted_ingredient = input_box.get_text()
-            if not check_ingredient(inputted_ingredient):
-                actual_ingredient = get_nearest_food(inputted_ingredient)
+            #if not check_ingredient(inputted_ingredient):
+            #    actual_ingredient = get_nearest_food(inputted_ingredient)
                 #TODO: create a pop-up to ask user if actual ingredient is what they actually want
                 #      if it is then update inputted_ingredeint with actual_ingredient
             item_list.append(inputted_ingredient)
