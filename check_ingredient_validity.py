@@ -27,9 +27,10 @@ def get_nearest_food(ingredient:str):
         if food in current_guess_foods:
             final_result = food
             break
-    return final_result, current_guess_dist
+    return final_result
 
 def check_edit_distance(ingredient:str, food:str):
+    ingredient = ingredient.lower()
     ingredient_len = len(ingredient)
     food_len = len(food)
 
@@ -39,12 +40,11 @@ def check_edit_distance(ingredient:str, food:str):
         return ingredient_len
         
     step_array = [[0] * (food_len + 1) for _ in range(ingredient_len + 1)]
-    step_array[0][1] = 1
 
-    for i in range(0, ingredient_len):
+    for i in range(0, ingredient_len + 1):
         step_array[i][0] = i
 
-    for j in range(0, food_len):
+    for j in range(0, food_len + 1):
         step_array[0][j] = j
 
     for i in range(1, ingredient_len + 1):
@@ -62,8 +62,23 @@ def check_edit_distance(ingredient:str, food:str):
     edit_distance = step_array[ingredient_len][food_len]
     return edit_distance
 
-print(check_edit_distance("apfel", "apple"))
-print(get_nearest_food("apfel"))
+def test_food_dist(ingredient, food, real_dist):
+    food_ingredient = check_edit_distance(ingredient, food)
+    if food_ingredient != real_dist:
+        print("Error: distance should be " + str(real_dist) + " but is " + str(food_ingredient))
+    else:
+        print(ingredient + "_" + food +  " = correct!")
 
-def test_case_apfel():
-    pass
+test_food_dist("Fettuccine", "fettuchine", 2)
+test_food_dist("apfel", "egg", 5)
+test_food_dist("squEGG", "egg", 3)
+
+def test_food_answer(ingredient, actual_food):
+    food_result = get_nearest_food(ingredient)
+    if food_result != actual_food:
+        print("Error: food should be " + actual_food + " but is " + food_result)
+    else:
+        print(ingredient + "-" + food_result +  " = correct!")
+
+test_food_answer("fettuchine", "fettuccine")
+test_food_answer("uou", "'ulu") #small name foods like that that don't show up a lot are more likely to give error
