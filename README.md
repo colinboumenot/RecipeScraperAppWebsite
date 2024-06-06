@@ -6,7 +6,7 @@ The goal of our project is to create an application, where you can enter and sav
 
 ### **Main Features**
 
-- The project will include at least two scappers - first being the one that scapes the URLs of all recipies on the website and the secon done being the one that scrapes the details of the actual recipies.
+- The project will include at least two scrapers - first being the one that scapes the URLs of all recipies on the website and the secon done being the one that scrapes the details of the actual recipies.
 - The project will induced a database where all the recipies and their details will be stored.
 - There will be an App interface, which will allow the user to switch in between recipies, add and delete available ingridients and sort and filter recipies by taste.
 - The language for the project will be Python, with a possible inclusion of a database language.
@@ -15,7 +15,7 @@ The goal of our project is to create an application, where you can enter and sav
 
 **Initial goals**
 
-1) Get the 2 scrappers done - or at least ready to test
+1) Get the 2 scrapers done - or at least ready to test
 2) Choose and prepare the Database
 3) Fill in and Create the Database
 4) Sort and Double check all the data before transferring focus to making the App
@@ -118,6 +118,13 @@ To run the app first download the following libraries.
 ### **Nikil:**
 
 ### **Camila:**
+**Summary:** I believe that our project was pretty good since early on we had cut parts of our project and save them for later in the event that we finished early - we didn't so doing so was definetly a good idea. We also had defined work for people to work on so we generally had work for people to do. I feel like the code reviews and PR's definetly helped us get a better understanding of git and transition to a process more similar to something that might be found in an actual workforce which was pretty cool.
+
+**Communication:** I think communication was pretty good, but I do think it could have been a bit better since sometimes it would feel like people would only talk to me, so then I'd have to pass them along to the person that they should have been talking to, but we were always aware of what others were doing with the standups (or quick sitting down conversations) at the start of class. 
+
+**Surprises:** While moving away from the database was a bit of a surprise considering how commited we were to it earlier, I also feel like it was a good thing because I have a tendency to sometimes get stuck doing mindless but long tasks that while a little helpful can drag me down so it helped me stop categorizing all the ingredients since our current sorting method wouldn't be able to utilize umbrella terms and transition to more helpful work like storing data, connecting UI and backend, and a spell checker.
+
+**Takeaways:** I feel like this project was a great expirence to get better at communication, and having the expirence of a long project, because while I've had some similar moments in robotics, they're both unique in their own ways and help me grow differently. Something else that I did in this project that I don't do much was a bit of testing after I kept running into bugs on my spell-checker and I felt like it was a great start since testing is a really important thing, and I felt like it was a start to get more used to creating and using testing methods.
 
 ### **Sofiya:**
 
