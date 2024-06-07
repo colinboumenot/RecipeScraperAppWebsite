@@ -75,12 +75,13 @@ def create_home_screen():
     button_recipe = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(300, 300, 200, 60),
                                                  text='Recipe Search',
                                                  manager=manager)
-    button_ingredients = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(300, 400, 200, 60),
-                                                      text='Food Ingredients',
-                                                      manager=manager)
-    return title, button_filter, button_recipe, button_ingredients
+    # button_ingredients = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(300, 400, 200, 60),
+    #                                                   text='Food Ingredients',
+    #                                                   manager=manager)
+    return title, button_filter, button_recipe
 
-title, button_filter, button_recipe, button_ingredients = create_home_screen()
+title, button_filter, button_recipe = create_home_screen()
+
 
 # Screen state
 current_screen = 'home'
@@ -100,19 +101,23 @@ def save_user_data():
 
 # Check to see if user_ingredients.txt is empty, and if not add to item_list upon opening the app
 def check_saved_data():
-    try:
-        with open('user_ingredients.txt', "r") as user_ingredients:
-            for line in user_ingredients:
-                if "-" in line:
-                    food, quantity = line.strip().split(" - ")
-                    item_list.append((food, int(quantity)))
-                else:
-                    print (f"Skipping malformed line: {line.strip()}")
-    except FileNotFoundError:
-        print("user_ingredients.txt not found, starting with an empty list.")
-    print(item_list)
 
+    user_ingredients = []
+    try:
+        user_ingredients = open('user_ingredients.txt', "x").readlines()
+    except:
+        print("file already exists")
+        user_ingredients = open('user_ingredients.txt', "r").readlines()
+
+    if user_ingredients is not None:
+        for ingredient in user_ingredients:
+            food_amount_unit = ingredient.split('%')
+            if food_amount_unit[0] not in item_list:
+                item_list.append(food_amount_unit[0].strip("\n"))
+                
 check_saved_data()
+save_user_data()
+
 
 # Initialize empty dictionary with all ingredients
 def create_ingredient_dict():
@@ -120,11 +125,12 @@ def create_ingredient_dict():
     system = platform.system()
     ingredients = []
     if system == "Windows":
-        ingredients = open("foodnetwork_ingredients.txt").readlines()
+
+        ingredients = open('raw_data\\foodnetwork_ingredients.txt').readlines()
     else:
-        ingredients = open("foodnetwork_ingredients.txt").readlines()
+        ingredients = open('raw_data/foodnetwork_ingredients.txt').readlines()
     for food in ingredients:
-        food = food.strip()
+        food = food[0:len(food) - 1] #removes the \n seen at the end of foods
         ingredient_dict[food] = [0, 0, 0, 0]
     return ingredient_dict
 
@@ -171,7 +177,8 @@ def draw_filter_search_screen():
     title.hide()
     button_filter.hide()
     button_recipe.hide()
-    button_ingredients.hide()
+    #button_ingredients.hide()
+
 
     filter_title = pygame_gui.elements.UILabel(relative_rect=pygame.Rect(200, 50, 400, 50),
                                                text='List out your ingredients',
@@ -219,7 +226,9 @@ def draw_recipe_search_screen():
     title.hide()
     button_filter.hide()
     button_recipe.hide()
-    button_ingredients.hide()
+
+    #button_ingredients.hide()
+
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
                                                text='Back',
                                                manager=manager)
@@ -236,25 +245,27 @@ def draw_recipe_search_screen():
 
     current_screen = 'recipe_search'
 
-def draw_ingredients_screen():
-    global current_screen, back_button, ingredients_text_box
-    title.hide()
-    button_filter.hide()
-    button_recipe.hide()
-    button_ingredients.hide()
-    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
-                                               text='Back',
-                                               manager=manager)
-    ingredients_text_box = pygame_gui.elements.UITextBox(html_text='',
-                                                         relative_rect=pygame.Rect(50, 100, 700, 400),
-                                                         manager=manager)
-    ingredients_text = ''
-    with open('foodnetwork_ingredients.txt', 'r') as file:
-        ingredients_text = file.read().replace('\n', '<br>')
 
-    ingredients_text_box.html_text = ingredients_text
-    ingredients_text_box.rebuild()
-    current_screen = 'ingredients'
+# def draw_ingredients_screen():
+#     global current_screen, back_button, ingredients_text_box
+#     title.hide()
+#     button_filter.hide()
+#     button_recipe.hide()
+#     button_ingredients.hide()
+#     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
+#                                                text='Back',
+#                                                manager=manager)
+#     ingredients_text_box = pygame_gui.elements.UITextBox(html_text='',
+#                                                          relative_rect=pygame.Rect(50, 100, 700, 400),
+#                                                          manager=manager)
+    # ingredients_text = ''
+    # with open('foodnetwork_ingredients.txt', 'r') as file:
+    #     ingredients_text = file.read().replace('\n', '<br>')
+
+    # ingredients_text_box.html_text = ingredients_text
+    # ingredients_text_box.rebuild()
+    # current_screen = 'ingredients'
+
 
 def update_items_display():
     global delete_buttons, plus_button, minus_button, value_label, value
@@ -321,13 +332,17 @@ def handle_ui_events(event):
                     draw_filter_search_screen()
                 elif event.ui_element == button_recipe:
                     draw_recipe_search_screen()
-                elif event.ui_element == button_ingredients:
-                    draw_ingredients_screen()
+
+                #elif event.ui_element == button_ingredients:
+                    #draw_ingredients_screen()
+
                 elif back_button and event.ui_element == back_button:
                     title.show()
                     button_filter.show()
                     button_recipe.show()
-                    button_ingredients.show()
+
+                    #button_ingredients.show()
+
                     back_button.hide()
                     if recipe_title:
                         recipe_title.hide()
@@ -391,7 +406,9 @@ def handle_ui_events(event):
             filter_checkbox.update_checkbox(event)
 
     elif event.type == pygame.MOUSEMOTION:
-        for element in [button_filter, button_recipe, button_ingredients, plus_button, minus_button, back_button, extra_button]:
+
+        for element in [button_filter, button_recipe, plus_button, minus_button, back_button, extra_button]:
+
             if element is not None and element.is_focused:
                 hovered_element = element
                 break
