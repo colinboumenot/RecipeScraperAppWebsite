@@ -217,10 +217,15 @@ exclusive_ingredient_search_on = True
 max_len = 0
 
 def get_final_recipe():
-    user_ingredients = open(os.path.join('raw_data', 'foodnetwork_ingredients.txt')).read().splitlines()
+    user_foods = []
+    user_ingredients = open('user_ingredients.txt', "r").read().splitlines()
+    for ingredient in user_ingredients:
+        ingredient = ingredient.split("%")
+        food = ingredient[0]
+        user_foods.append(food)
     if exclusive_ingredient_search_on:
        return find_recipes_no_quantities_exclusive(ingredient_dict)
-    return find_recipes_no_quantities(user_ingredients, ingredient_dict)
+    return find_recipes_no_quantities(user_foods, ingredient_dict)
 
 def draw_searched_screen():
     global current_screen, back_button, ingredients_text_box, recipe_buttons, up_button, down_button, max_len
@@ -232,6 +237,7 @@ def draw_searched_screen():
                                                manager=manager)
     
     final_recepies = get_final_recipe()
+    print(final_recepies)
     final_recepies = test_recipies
     max_len = len(final_recepies)
     up_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(80, 100, 60, 60),
@@ -479,6 +485,10 @@ def handle_ui_events(event):
                     for checkbox in check_boxes:
                         checkbox.checked = False
                     current_screen = 'home'
+                    for btn in recipe_buttons:
+                        btn.hide()
+                    up_button.hide()
+                    down_button.hide()
 
                     if input_box:
                         input_box.hide()
