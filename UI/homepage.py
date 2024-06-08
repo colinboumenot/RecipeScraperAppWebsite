@@ -248,6 +248,19 @@ def draw_recipe_search_screen():
 
     current_screen = 'recipe_search'
 
+def draw_autocorrect_popup(correction):
+    pop_up_screen = pygame.draw.rect(screen, BLACK, pygame.Rect(290, 200, 160, 100)) 
+    autocorrect_title = pygame_gui.elements.UILabel(relative_rect=pygame.Rect(300, 210, 130, 20), 
+                                               text='Did you mean to type ' + correction + '?',
+                                               manager=manager)
+    yes_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(380, 275, 50, 15), 
+                                               text='Yes',
+                                               manager=manager)
+    no_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(295, 275, 50, 15), 
+                                               text='No',
+                                               manager=manager)
+    
+    pass
 # def draw_ingredients_screen():
 #     global current_screen, back_button, ingredients_text_box
 #     title.hide()
@@ -390,8 +403,7 @@ def handle_ui_events(event):
 
             if not check_ingredient(inputted_ingredient):
                 actual_ingredient = get_nearest_food(inputted_ingredient)
-                #TODO: create a pop-up to ask user if actual ingredient is what they actually want
-                #      if it is then update inputted_ingredeint with actual_ingredient
+                draw_autocorrect_popup(actual_ingredient) #TODO: add point for searching for 
             item_list.append((inputted_ingredient, value))
             #TODO: once units and quantites are also sent in, call unit conversion method
             #update_ingredient_dict() -> uncomment once units are finalized
