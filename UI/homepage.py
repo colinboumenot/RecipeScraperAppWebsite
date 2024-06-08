@@ -101,7 +101,7 @@ title, button_filter, button_recipe = create_home_screen()
 
 # Screen state
 current_screen = 'home'
-input_box = search_results = back_button = filter_title = recipe_title = recipe_search_button = items_text_box = ingredients_text_box = extra_button = filter_checkbox = search_box = up_button = down_button = None
+input_box = search_results = back_button = filter_title = recipe_title = recipe_search_button = items_text_box = ingredients_text_box = extra_button = filter_checkbox = search_box = up_button = down_button = recipe_text_box = None
 item_list = []
 delete_buttons = []
 recipe_buttons = []
@@ -252,13 +252,26 @@ def draw_searched_screen():
                                                text=final_recepies[i].title,
                                                manager=manager)
         y += 1
-        recipe_buttons.append(btn)
+        recipe_buttons.append([btn, final_recepies[i]])
                         
     current_screen = 'searched screen'
     
 
-def draw_recipe_screen():
-    pass
+def draw_recipe_screen(recipe):
+    global current_screen, back_button, ingredients_text_box, recipe_buttons, up_button, down_button, max_len, recipe_text_box
+    title.hide()
+    button_filter.hide()
+    button_recipe.hide()
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
+                                               text='Back',
+                                               manager=manager)
+    recipe_text_box = pygame_gui.elements.UITextBox(html_text='',
+                                                relative_rect=pygame.Rect(50, 100, 700, 400),
+                                                manager=manager)
+    recipe_text = recipe.title + '\n' + str(recipe.time) + '\n' + str(recipe.servings) + '\n' + str(recipe.difficulty) + '\n\n' + '\n'.join(recipe.ingredients) + '\n\n' + '\n'.join(recipe.steps)
+    recipe_text_box.html_text = recipe_text
+    recipe_text_box.rebuild()
+
 
 # Handling screens and transitions
 def draw_filter_search_screen():
@@ -452,7 +465,7 @@ def handle_ui_events(event):
                     if x != 0:
                         x -= 1
                     for btn in recipe_buttons:
-                        btn.hide()
+                        btn[0].hide()
                     back_button.hide()
                     up_button.kill()
                     down_button.kill()
@@ -461,7 +474,7 @@ def handle_ui_events(event):
                     if 5 * (x + 1) <= max_len:
                         x += 1
                     for btn in recipe_buttons:
-                        btn.hide()
+                        btn[0].hide()
                     back_button.hide()
                     up_button.kill()
                     down_button.kill()
@@ -486,9 +499,12 @@ def handle_ui_events(event):
                         checkbox.checked = False
                     current_screen = 'home'
                     for btn in recipe_buttons:
-                        btn.hide()
-                    up_button.hide()
-                    down_button.hide()
+                        if btn[0]:
+                            btn[0].hide()
+                    if up_button:
+                        up_button.hide()
+                    if down_button:
+                        down_button.hide()
 
                     if input_box:
                         input_box.hide()
@@ -505,6 +521,9 @@ def handle_ui_events(event):
                     back_button.hide()
                     if search_results:
                         search_results.hide()
+                    if recipe_text_box:
+                        recipe_text_box.hide()
+
                 elif event.ui_element == plus_button:
                     value += 1
                     value_label.set_text(str(value))
@@ -514,6 +533,14 @@ def handle_ui_events(event):
                         value = 0
                     value_label.set_text(str(value))
                 else:
+                    for btn in recipe_buttons:
+                        if event.ui_element == btn[0]:
+                            for btn1 in recipe_buttons:
+                                btn1[0].hide()
+                            back_button.hide()
+                            up_button.kill()
+                            down_button.kill()
+                            draw_recipe_screen(btn[1])
                     for btn in delete_buttons:
                         if event.ui_element == btn:
                             delete_item(btn)
