@@ -4,6 +4,7 @@ import pygame
 import pygame_gui
 
 import sys
+import os
 
 sys.path.append('.')
 from check_ingredient_validity import *
@@ -98,47 +99,40 @@ input_box = search_results = back_button = filter_title = recipe_title = recipe_
 item_list = []
 delete_buttons = []
 
+#write information item_list to file
+def save_user_data():
+    user_ingredients = open('user_ingredients.txt', "w")
+    for ingredient, quantity in item_list:
+        user_ingredients.write(f"{ingredient}%{quantity}\n")
+    user_ingredients.close()
 # Flags to control sound playback
 hovered_element = None
 hovered_element_prev = None
-
-# Write information item_list to file
-def save_user_data():
-    with open('user_ingredients.txt', "w") as user_ingredients:
-        for ingredient, quantity in item_list:
-            user_ingredients.write(f"{ingredient} - {quantity}\n")
 
 # Check to see if user_ingredients.txt is empty, and if not add to item_list upon opening the app
 def check_saved_data():
     user_ingredients = []
     try:
-        user_ingredients = open('user_ingredients.txt', "x").readlines()
+        user_ingredients = open('user_ingredients.txt', "x").read().splitlines()
     except:
         print("file already exists")
-        user_ingredients = open('user_ingredients.txt', "r").readlines()
+        user_ingredients = open('user_ingredients.txt', "r").read().splitlines()
 
     if user_ingredients is not None:
         for ingredient in user_ingredients:
             food_amount_unit = ingredient.split('%')
-            if food_amount_unit[0] not in item_list:
-                item_list.append(food_amount_unit[0].strip("\n"))
-
-                
-
+            item_list_tuple = (food_amount_unit[0], food_amount_unit[1])
+            if item_list_tuple not in item_list:
+                item_list.append(item_list_tuple)
 check_saved_data()
 save_user_data()
 
 # Initialize empty dictionary with all ingredients
 def create_ingredient_dict():
     ingredient_dict = dict()
-    system = platform.system()
     ingredients = []
-    if system == "Windows":
-        ingredients = open('raw_data\\foodnetwork_ingredients.txt').readlines()
-    else:
-        ingredients = open('raw_data/foodnetwork_ingredients.txt').readlines()
+    ingredients = open(os.path.join('raw_data', 'foodnetwork_ingredients.txt')).read().splitlines()
     for food in ingredients:
-        food = food[0:len(food) - 1] #removes the \n seen at the end of foods
         ingredient_dict[food] = [0, 0, 0, 0]
     return ingredient_dict
 
@@ -150,8 +144,11 @@ def update_ingredient_dict():
         ingredient = ingredient.split("%")
         food = ingredient[0]
         amount = ingredient[1]
-        unit = ingredient[2]
-        if unit == "grams":
+        try:
+            unit = ingredient[2]
+        except: #since units aren't currently given this should stop any potential out of range errors
+            unit = None
+        if unit == "grams": 
             ingredient_dict[food][0] = amount
         elif unit == "cups":
             ingredient_dict[food][1] = amount
@@ -227,6 +224,7 @@ def draw_filter_search_screen():
     current_screen = 'filter_search'
     items_text_box.html_text = ''
     items_text_box.rebuild()
+    update_items_display()
 
 def draw_recipe_search_screen():
     global current_screen, back_button, recipe_title, recipe_search_button, check_boxes
