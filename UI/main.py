@@ -1,6 +1,7 @@
 import platform
 import pygame
 import pygame_gui
+from find_recipes import find_recipes_no_quantities, find_recipes_no_quantities_exclusive
 
 # Initialize PyGame
 pygame.init()
@@ -93,6 +94,9 @@ delete_buttons = []
 hovered_element = None
 hovered_element_prev = None
 
+#Flags for Recipe Finding
+exclusive_ingredient_search_on = True
+
 # Write information item_list to file
 def save_user_data():
     with open('user_ingredients.txt', "w") as user_ingredients:
@@ -170,6 +174,39 @@ value_label = None
 check_boxes = []
 
 filter_buttons = []
+
+recipe_buttons = []
+
+#x - count for scrolling down
+x = 0
+
+def get_final_recipe():
+    if exclusive_ingredient_search_on:
+       return find_recipes_no_quantities_exclusive(ingredient_dict)
+    return find_recipes_no_quantities(ingredient_dict)
+
+def draw_searched_screen():
+    global current_screen, back_button, ingredients_text_box, recipe_buttons
+    title.hide()
+    button_filter.hide()
+    button_recipe.hide()
+    button_ingredients.hide()
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
+                                               text='Back',
+                                               manager=manager)
+    
+    final_recepies = get_final_recipe()
+    y = 0
+    for i in range(10 * x , min(10 * (x + 1), len(final_recepies))):
+        btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 50 + y * 50, 100, 40),
+                                               text=i.title,
+                                               manager=manager)
+        recipe_buttons.append(btn)
+                        
+    current_screen = 'searched screen'
+
+def draw_recipe_screen():
+    pass
 
 # Handling screens and transitions
 def draw_filter_search_screen():
@@ -332,10 +369,21 @@ def handle_ui_events(event):
                     draw_filter_search_screen()
                 elif event.ui_element == button_recipe:
                     draw_recipe_search_screen()
-
-                #elif event.ui_element == button_ingredients:
-                    #draw_ingredients_screen()
-
+                elif event.ui_element == button_ingredients:
+                    draw_ingredients_screen()
+                elif event.ui_element == extra_button:
+                    back_button.hide()
+                    extra_button.hide()
+                    filter_title.hide()
+                    input_box.hide()
+                    search_results.hide()
+                    items_text_box.hide()
+                    plus_button.hide()
+                    value_label.hide()
+                    minus_button.hide()
+                    extra_button.hide()
+                    search_box.hide()
+                    draw_searched_screen()
                 elif back_button and event.ui_element == back_button:
                     title.show()
                     button_filter.show()

@@ -1,4 +1,4 @@
-from recipe import Recipe
+from UI.recipe import Recipe
 import pickle
 import re
 

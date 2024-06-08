@@ -1,6 +1,6 @@
 import measurement_parser
 import ingredient_parser as ingredient_parser
-from recipe import Recipe
+from UI.recipe import Recipe
 import pickle
 import random
 

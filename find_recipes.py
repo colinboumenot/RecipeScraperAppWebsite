@@ -1,5 +1,5 @@
 import pickle
-import recipe
+import recipe as recipe
 from collections import defaultdict
 
 

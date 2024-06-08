@@ -1,5 +1,5 @@
 import pickle
-from recipe import Recipe
+from UI.recipe import Recipe
 from collections import defaultdict
 
 recipes = []

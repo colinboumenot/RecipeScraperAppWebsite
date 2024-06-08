@@ -1,4 +1,4 @@
-from recipe import Recipe
+from UI.recipe import Recipe
 import requests
 import pickle
 from time import time, sleep

@@ -1,5 +1,5 @@
 import pickle
-import recipe
+import UI.recipe as recipe
 from collections import Counter, defaultdict
 
 with open('raw_data/pickle_files/cleaned_recipe_objects_standardized.pickle', 'rb') as f:
