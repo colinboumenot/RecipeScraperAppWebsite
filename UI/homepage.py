@@ -138,8 +138,15 @@ def create_ingredient_dict():
 
 ingredient_dict = create_ingredient_dict()
 
+'''
+    NOTE: since there's currently no units the ingredient_dict
+    is going to be made off of the assumption that there is an infinite amount of each ingredient adeded
+    
+    However in theory is should work automatically once units are added, once they're been changed to match
+    the general syntax of user_ingredients.txt
+'''
 def update_ingredient_dict():
-    user_ingredients = open('user_ingredients.txt', "r").readlines()
+    user_ingredients = open('user_ingredients.txt', "r").read().splitlines()
     for ingredient in user_ingredients:
         ingredient = ingredient.split("%")
         food = ingredient[0]
@@ -405,8 +412,8 @@ def handle_ui_events(event):
                 actual_ingredient = get_nearest_food(inputted_ingredient)
                 draw_autocorrect_popup(actual_ingredient) #TODO: add point for searching for 
             item_list.append((inputted_ingredient, value))
-            #TODO: once units and quantites are also sent in, call unit conversion method
-            #update_ingredient_dict() -> uncomment once units are finalized
+            #TODO: once units are added remember to call unit conversion method
+            update_ingredient_dict()
 
             save_user_data()
             update_items_display()

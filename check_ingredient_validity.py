@@ -29,6 +29,7 @@ def get_nearest_food(ingredient:str):
             break
     return final_result
 
+#get smalled number of additions, subtractions, swaps, and substitutions to turn one word into another
 def check_edit_distance(ingredient:str, food:str):
     ingredient = ingredient.lower()
     ingredient_len = len(ingredient)
@@ -62,6 +63,7 @@ def check_edit_distance(ingredient:str, food:str):
     edit_distance = step_array[ingredient_len][food_len]
     return edit_distance
 
+#check if distance between strigns using edit_distance method is correct
 def test_food_dist(ingredient, food, real_dist):
     food_ingredient = check_edit_distance(ingredient, food)
     if food_ingredient != real_dist:
@@ -73,6 +75,7 @@ test_food_dist("Fettuccine", "fettuchine", 2)
 test_food_dist("apfel", "egg", 5)
 test_food_dist("squEGG", "egg", 3)
 
+#checks if food given by get_nearest_food is correct
 def test_food_answer(ingredient, actual_food):
     food_result = get_nearest_food(ingredient)
     if food_result != actual_food:
