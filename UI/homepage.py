@@ -145,7 +145,7 @@ ingredient_dict = create_ingredient_dict()
     However in theory is should work automatically once units are added, once they're been changed to match
     the general syntax of user_ingredients.txt
 '''
-def update_ingredient_dict():
+def ingredient_dict_addition():
     user_ingredients = open('user_ingredients.txt', "r").read().splitlines()
     for ingredient in user_ingredients:
         ingredient = ingredient.split("%")
@@ -165,6 +165,17 @@ def update_ingredient_dict():
             ingredient_dict[food][3] = amount
         else:
             ingredient_dict[food] = [9999, 9999, 9999, 9999]
+
+def ingredient_dict_deletion():
+    user_ingredients = open('user_ingredients.txt', "r").read().splitlines()
+    stored_foods = ingredient_dict.keys()
+    user_foods = []
+    for ingredient in user_ingredients:
+        ingredient = ingredient.split("%")
+        user_foods.append(ingredient[0])
+    for food in stored_foods:
+        if food not in user_foods:
+            ingredient_dict[food] = [0, 0, 0, 0]
 
 # Plus Button
 plus_button = None
@@ -337,6 +348,7 @@ def delete_item(button):
     if button.item_index < len(item_list):
         item_list.pop(button.item_index)
         save_user_data()
+        ingredient_dict_deletion()
         update_items_display()
 
 def handle_ui_events(event):
@@ -413,7 +425,7 @@ def handle_ui_events(event):
                 draw_autocorrect_popup(actual_ingredient) #TODO: add point for searching for 
             item_list.append((inputted_ingredient, value))
             #TODO: once units are added remember to call unit conversion method
-            update_ingredient_dict()
+            ingredient_dict_addition()
 
             save_user_data()
             update_items_display()
