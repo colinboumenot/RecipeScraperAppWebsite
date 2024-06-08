@@ -268,7 +268,12 @@ def draw_recipe_screen(recipe):
     recipe_text_box = pygame_gui.elements.UITextBox(html_text='',
                                                 relative_rect=pygame.Rect(50, 100, 700, 400),
                                                 manager=manager)
-    recipe_text = recipe.title + '\n' + str(recipe.time) + '\n' + str(recipe.servings) + '\n' + str(recipe.difficulty) + '\n\n' + '\n'.join(recipe.ingredients) + '\n\n' + '\n'.join(recipe.steps)
+    recipe_text = recipe.title + '\n' 
+    recipe_text += str(recipe.time) + '\n'
+    recipe_text += str(recipe.servings) + '\n'
+    recipe_text += str(recipe.difficulty) + '\n\n' 
+    recipe_text += '\n'.join(recipe.ingredients) + '\n\n' 
+    recipe_text += '\n'.join(recipe.steps)
     recipe_text_box.html_text = recipe_text
     recipe_text_box.rebuild()
 
@@ -431,7 +436,8 @@ def delete_item(button):
         update_items_display()
 
 def handle_ui_events(event):
-    global current_screen, item_list, value, value_label, check_boxes, recipe_search_button, input_box, items_text_box, plus_button, minus_button, value_label, filter_title, back_button, search_results, ingredients_text_box, extra_button, filter_checkbox, search_box
+    global current_screen, item_list, value, value_label, check_boxes, recipe_search_button, input_box, items_text_box, plus_button
+    global  minus_button, value_label, filter_title, back_button, search_results, ingredients_text_box, extra_button, filter_checkbox, search_box
     global hovered_element, hovered_element_prev
     global exclusive_ingredient_search_on
     global up_button, down_button
