@@ -7,11 +7,12 @@ import sys
 import os
 
 import pickle
-from recipe import Recipe
+
 
 sys.path.append('.')
 from check_ingredient_validity import *
 from find_recipes import find_recipes_no_quantities, find_recipes_no_quantities_exclusive
+from recipe import Recipe
 
 # Initialize PyGame
 pygame.init()
@@ -100,7 +101,7 @@ title, button_filter, button_recipe = create_home_screen()
 
 # Screen state
 current_screen = 'home'
-input_box = search_results = back_button = filter_title = recipe_title = recipe_search_button = items_text_box = ingredients_text_box = extra_button = filter_checkbox = search_box = None
+input_box = search_results = back_button = filter_title = recipe_title = recipe_search_button = items_text_box = ingredients_text_box = extra_button = filter_checkbox = search_box = up_button = down_button = None
 item_list = []
 delete_buttons = []
 recipe_buttons = []
@@ -191,7 +192,7 @@ def create_test_recipies():
     test_recipes = ingredient_to_recipes['parmigiano']
     return test_recipes
 
-test_recipies = create_test_recipies()
+test_recipies = list(create_test_recipies())
 
 # Plus Button
 plus_button = None
@@ -213,6 +214,7 @@ filter_buttons = []
 #x - count for scrolling down
 x = 0
 exclusive_ingredient_search_on = True
+max_len = 0
 
 def get_final_recipe():
     user_ingredients = open(os.path.join('raw_data', 'foodnetwork_ingredients.txt')).read().splitlines()
@@ -221,7 +223,7 @@ def get_final_recipe():
     return find_recipes_no_quantities(user_ingredients, ingredient_dict)
 
 def draw_searched_screen():
-    global current_screen, back_button, ingredients_text_box, recipe_buttons
+    global current_screen, back_button, ingredients_text_box, recipe_buttons, up_button, down_button, max_len
     title.hide()
     button_filter.hide()
     button_recipe.hide()
@@ -230,12 +232,20 @@ def draw_searched_screen():
                                                manager=manager)
     
     final_recepies = get_final_recipe()
-    print(final_recepies)
-    y = 0
-    for i in range(10 * x , min(10 * (x + 1), len(final_recepies))):
-        btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 50 + y * 50, 100, 40),
-                                               text=i.title,
+    final_recepies = test_recipies
+    max_len = len(final_recepies)
+    up_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(80, 100, 60, 60),
+                                               text='UP',
                                                manager=manager)
+    down_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(80, 440, 60, 60),
+                                               text='DOWN',
+                                               manager=manager)
+    y = 0
+    for i in range(5 * x , min(5 * (x + 1), len(final_recepies))):
+        btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(200, 40 + y * 100, 500, 70),
+                                               text=final_recepies[i].title,
+                                               manager=manager)
+        y += 1
         recipe_buttons.append(btn)
                         
     current_screen = 'searched screen'
@@ -405,6 +415,8 @@ def handle_ui_events(event):
     global current_screen, item_list, value, value_label, check_boxes, recipe_search_button, input_box, items_text_box, plus_button, minus_button, value_label, filter_title, back_button, search_results, ingredients_text_box, extra_button, filter_checkbox, search_box
     global hovered_element, hovered_element_prev
     global exclusive_ingredient_search_on
+    global up_button, down_button
+    global x
 
     manager.process_events(event)
 
@@ -429,6 +441,24 @@ def handle_ui_events(event):
                     value_label.hide()
                     minus_button.hide()
                     extra_button.hide()
+                    draw_searched_screen()
+                elif event.ui_element == up_button:
+                    if x != 0:
+                        x -= 1
+                    for btn in recipe_buttons:
+                        btn.hide()
+                    back_button.hide()
+                    up_button.kill()
+                    down_button.kill()
+                    draw_searched_screen()
+                elif event.ui_element == down_button:
+                    if 5 * (x + 1) <= max_len:
+                        x += 1
+                    for btn in recipe_buttons:
+                        btn.hide()
+                    back_button.hide()
+                    up_button.kill()
+                    down_button.kill()
                     draw_searched_screen()
                 elif back_button and event.ui_element == back_button:
                     title.show()
