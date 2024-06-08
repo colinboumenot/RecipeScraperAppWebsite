@@ -1,6 +1,13 @@
 import platform
 import pygame
 import pygame_gui
+
+import sys
+import os
+
+sys.path.append('.')
+from check_ingredient_validity import *
+
 from find_recipes import find_recipes_no_quantities, find_recipes_no_quantities_exclusive
 
 # Initialize PyGame
@@ -190,7 +197,6 @@ def draw_searched_screen():
     title.hide()
     button_filter.hide()
     button_recipe.hide()
-    button_ingredients.hide()
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
                                                text='Back',
                                                manager=manager)
