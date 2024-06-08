@@ -6,6 +6,9 @@ import pygame_gui
 import sys
 import os
 
+import pickle
+from recipe import Recipe
+
 sys.path.append('.')
 from check_ingredient_validity import *
 from find_recipes import find_recipes_no_quantities, find_recipes_no_quantities_exclusive
@@ -180,6 +183,15 @@ def ingredient_dict_deletion():
     for food in stored_foods:
         if food not in user_foods:
             ingredient_dict[food] = [0, 0, 0, 0]
+
+#takes all recipes that use parmigiano as an ingredient (there's 87) and returns as a list
+def create_test_recipies():
+    with open('raw_data/pickle_files/ingredient_to_recipes_dict.pickle', 'rb') as f:
+        ingredient_to_recipes = pickle.load(f)
+    test_recipes = ingredient_to_recipes['parmigiano']
+    return test_recipes
+
+test_recipies = create_test_recipies()
 
 # Plus Button
 plus_button = None
