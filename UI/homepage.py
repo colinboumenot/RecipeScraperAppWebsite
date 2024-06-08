@@ -203,9 +203,10 @@ x = 0
 exclusive_ingredient_search_on = True
 
 def get_final_recipe():
+    user_ingredients = open(os.path.join('raw_data', 'foodnetwork_ingredients.txt')).read().splitlines()
     if exclusive_ingredient_search_on:
        return find_recipes_no_quantities_exclusive(ingredient_dict)
-    return find_recipes_no_quantities(ingredient_dict)
+    return find_recipes_no_quantities(user_ingredients, ingredient_dict)
 
 def draw_searched_screen():
     global current_screen, back_button, ingredients_text_box, recipe_buttons
@@ -217,6 +218,7 @@ def draw_searched_screen():
                                                manager=manager)
     
     final_recepies = get_final_recipe()
+    print(final_recepies)
     y = 0
     for i in range(10 * x , min(10 * (x + 1), len(final_recepies))):
         btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 50 + y * 50, 100, 40),
@@ -390,6 +392,7 @@ def delete_item(button):
 def handle_ui_events(event):
     global current_screen, item_list, value, value_label, check_boxes, recipe_search_button, input_box, items_text_box, plus_button, minus_button, value_label, filter_title, back_button, search_results, ingredients_text_box, extra_button, filter_checkbox, search_box
     global hovered_element, hovered_element_prev
+    global exclusive_ingredient_search_on
 
     manager.process_events(event)
 
@@ -488,11 +491,10 @@ def handle_ui_events(event):
                 checkbox.update_checkbox(event)
         elif current_screen == 'filter_search':
             flag = filter_checkbox.update_checkbox(event)
-            if flag:
-                if filter_checkbox.checked:
-                    exclusive_ingredient_search_on = False
-                else:
-                    exclusive_ingredient_search_on = True
+            if filter_checkbox.checked:
+                exclusive_ingredient_search_on = False
+            else:
+                exclusive_ingredient_search_on = True
 
 
     elif event.type == pygame.MOUSEMOTION:
