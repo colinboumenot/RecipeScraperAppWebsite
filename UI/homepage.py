@@ -8,7 +8,7 @@ import os
 
 sys.path.append('.')
 from check_ingredient_validity import *
-
+from find_recipes import find_recipes_no_quantities, find_recipes_no_quantities_exclusive
 
 # Initialize PyGame
 pygame.init()
@@ -56,6 +56,8 @@ class Checkbox:
             rect = pygame.Rect(self.x, self.y, self.size, self.size)
             if rect.collidepoint(mouse_pos):
                 self.checked = not self.checked
+                return True
+            return False
 
 # Setup the display
 window_size = (800, 600)
@@ -98,6 +100,7 @@ current_screen = 'home'
 input_box = search_results = back_button = filter_title = recipe_title = recipe_search_button = items_text_box = ingredients_text_box = extra_button = filter_checkbox = search_box = None
 item_list = []
 delete_buttons = []
+recipe_buttons = []
 
 #write information item_list to file
 def save_user_data():
@@ -124,6 +127,7 @@ def check_saved_data():
             item_list_tuple = (food_amount_unit[0], food_amount_unit[1])
             if item_list_tuple not in item_list:
                 item_list.append(item_list_tuple)
+
 check_saved_data()
 save_user_data()
 
@@ -176,6 +180,38 @@ check_boxes = []
 
 filter_buttons = []
 
+#x - count for scrolling down
+x = 0
+exclusive_ingredient_search_on = True
+
+def get_final_recipe():
+    if exclusive_ingredient_search_on:
+       return find_recipes_no_quantities_exclusive(ingredient_dict)
+    return find_recipes_no_quantities(ingredient_dict)
+
+def draw_searched_screen():
+    global current_screen, back_button, ingredients_text_box, recipe_buttons
+    title.hide()
+    button_filter.hide()
+    button_recipe.hide()
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 550, 100, 40),
+                                               text='Back',
+                                               manager=manager)
+    
+    final_recepies = get_final_recipe()
+    y = 0
+    for i in range(10 * x , min(10 * (x + 1), len(final_recepies))):
+        btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 50 + y * 50, 100, 40),
+                                               text=i.title,
+                                               manager=manager)
+        recipe_buttons.append(btn)
+                        
+    current_screen = 'searched screen'
+    
+
+def draw_recipe_screen():
+    pass
+
 # Handling screens and transitions
 def draw_filter_search_screen():
     global input_box, search_results, back_button, filter_title, items_text_box, current_screen, plus_button, minus_button, value_label, extra_button, filter_checkbox, search_box
@@ -211,7 +247,7 @@ def draw_filter_search_screen():
                                                 manager=manager,
                                                 object_id=f'minus_button')
     
-    filter_checkbox = Checkbox(screen, 50, 500, 'Text box', manager)
+    filter_checkbox = Checkbox(screen, 50, 500, 'Include all recipies containing this ingredient', manager)
     
     extra_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(650, 550, 100, 40),
                                                 text='Search',
@@ -348,6 +384,18 @@ def handle_ui_events(event):
                     draw_recipe_search_screen()
                 #elif event.ui_element == button_ingredients:
                     #draw_ingredients_screen()
+                elif event.ui_element == extra_button:
+                    back_button.hide()
+                    extra_button.hide()
+                    filter_title.hide()
+                    input_box.hide()
+                    search_results.hide()
+                    items_text_box.hide()
+                    plus_button.hide()
+                    value_label.hide()
+                    minus_button.hide()
+                    extra_button.hide()
+                    draw_searched_screen()
                 elif back_button and event.ui_element == back_button:
                     title.show()
                     button_filter.show()
@@ -420,7 +468,13 @@ def handle_ui_events(event):
             for checkbox in check_boxes:
                 checkbox.update_checkbox(event)
         elif current_screen == 'filter_search':
-            filter_checkbox.update_checkbox(event)
+            flag = filter_checkbox.update_checkbox(event)
+            if flag:
+                if filter_checkbox.checked:
+                    exclusive_ingredient_search_on = False
+                else:
+                    exclusive_ingredient_search_on = True
+
 
     elif event.type == pygame.MOUSEMOTION:
         for element in [button_filter, button_recipe, plus_button, minus_button, back_button, extra_button]:
